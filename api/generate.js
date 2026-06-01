@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
-  const { name, what, who, location, services, extraSections, extraInsights } = req.body;
+  const { name, what, who, location, about, services, extraSections, extraInsights, colourInstruction } = req.body;
 
   if (!name || !what || !who || !location || !services) {
     return res.status(400).json({ error: 'Missing required fields' });
@@ -22,8 +22,14 @@ export default async function handler(req, res) {
     .join('\n');
 
   const extraSectionsText = extraSections && extraSections.length
-    ? `\n\nCOMPETITOR ANALYSIS — also add these sections:\n${extraSections.map(s => '- ' + s).join('\n')}\n${extraInsights ? 'Context: ' + extraInsights : ''}`
+    ? `\n\nCOMPETITOR ANALYSIS: also add these sections:\n${extraSections.map(s => '- ' + s).join('\n')}\n${extraInsights ? 'Context: ' + extraInsights : ''}`
     : '';
+
+  const aboutText = about
+    ? `ABOUT THE BUSINESS OWNER: ${about}`
+    : '';
+
+  const colours = colourInstruction || 'COLOURS: Use a clean neutral palette, white background, soft warm accents, dark professional text.';
 
   const prompt = `You are an expert website copywriter. Generate a complete professional homepage HTML for a service-based business.
 
@@ -34,24 +40,27 @@ BUSINESS DETAILS:
 - Location: ${location}
 - Services:
 ${servicesText}
+${aboutText}
 ${extraSectionsText}
+
+${colours}
 
 MANDATORY HOMEPAGE STRUCTURE (ALL sections required):
 1. HERO: H1 exactly 5-8 words. Subheading and primary CTA button.
 2. TALK TO IDEAL CUSTOMER: Problem-aware section with bullet points on pain points and solutions.
 3. SERVICES: All services as cards with names, prices, descriptions. CTA included.
-4. ABOUT: Short personal intro, background, why you started, trust builder. CTA included.
-5. CLIENT LOVE: 2-3 testimonials marked [PLACEHOLDER — replace with real testimonials].
+4. ABOUT: Use the about text provided to write a warm personal intro. Include a CTA.
+5. CLIENT LOVE: 2-3 testimonials marked [PLACEHOLDER, replace with real testimonials].
 6. CALL TO ACTION: Final CTA section.
 7. FOOTER: Business name, nav links, copyright, privacy policy placeholder, contact email placeholder.
-${extraSections && extraSections.length ? '\n8. FROM COMPETITOR ANALYSIS: ' + extraSections.join(', ') + ' — weave in naturally.' : ''}
+${extraSections && extraSections.length ? '\n8. FROM COMPETITOR ANALYSIS: ' + extraSections.join(', ') + ', weave in naturally.' : ''}
 
 COPY RULES:
 - First person only: "I", never "we"
 - Short punchy sentences
 - Warm, direct tone
 - Sentence case: only first word of each heading capitalised
-- No em dashes — commas or full stops instead
+- No em dashes, use commas or full stops instead
 - No italics
 - No filler
 - H1 between 5 and 8 words exactly
