@@ -1,11 +1,3 @@
 {
-  "version": 2,
-  "functions": {
-    "generate.js": {
-      "maxDuration": 60
-    },
-    "analyse-competitors.js": {
-      "maxDuration": 30
-    }
-  }
+  "version": 2
 }
