@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
-  const { name, what, who, location, about, services, extraSections, extraInsights, colourInstruction } = req.body;
+  const { name, what, who, location, serve, about, services, extraSections, extraInsights, colourInstruction } = req.body;
 
   if (!name || !what || !who || !location || !services) {
     return res.status(400).json({ error: 'Missing required fields' });
@@ -38,6 +38,7 @@ BUSINESS DETAILS:
 - What they do: ${what}
 - Who they serve: ${who}
 - Location: ${location}
+- Where they serve clients: ${serve || 'not specified'}
 - Services:
 ${servicesText}
 ${aboutText}
