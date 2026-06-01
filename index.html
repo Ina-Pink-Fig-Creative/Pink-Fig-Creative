@@ -85,11 +85,11 @@
   .pf-colours-panel { display: none; }
   .pf-colours-panel.visible { display: block; }
 
-  .pf-colour-row { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; }
-  .pf-colour-swatch { width: 40px; height: 40px; border-radius: 8px; border: 1.5px solid var(--pf-blush-dark); flex-shrink: 0; padding: 2px; cursor: pointer; background: none; }
-  .pf-colour-hex { flex: 1; background: var(--pf-white); border: 1.5px solid var(--pf-blush-dark); border-radius: 10px; padding: 10px 14px; font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--pf-text); outline: none; transition: border-color 0.2s; }
+  .pf-colour-row { display: grid; grid-template-columns: 62px 40px 160px; gap: 10px; align-items: center; margin-bottom: 10px; }
+  .pf-colour-swatch { width: 40px; height: 40px; border-radius: 8px; border: 1.5px solid var(--pf-blush-dark); padding: 2px; cursor: pointer; background: none; }
+  .pf-colour-hex { background: var(--pf-white); border: 1.5px solid var(--pf-blush-dark); border-radius: 10px; padding: 10px 14px; font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--pf-text); outline: none; transition: border-color 0.2s; width: 100%; }
   .pf-colour-hex:focus { border-color: var(--pf-plum); }
-  .pf-colour-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--pf-muted); font-weight: 500; width: 60px; flex-shrink: 0; }
+  .pf-colour-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--pf-muted); font-weight: 500; white-space: nowrap; }
 
   .pf-tip { background: rgba(239,180,178,0.15); border-left: 3px solid var(--pf-coral); border-radius: 0 8px 8px 0; padding: 10px 14px; font-size: 13px; color: var(--pf-plum); margin-bottom: 18px; line-height: 1.6; }
 
@@ -204,7 +204,7 @@
     <!-- STEP 2: WHAT DO YOU DO -->
     <div class="pf-step" id="step-2">
       <p class="pf-step-label">Step 2 of 8</p>
-      <h2 class="pf-step-heading">What do you do?</h2>
+      <h2 class="pf-step-heading">What services do you offer?</h2>
       <p class="pf-step-sub">In plain terms. What service do you provide and what outcome does it create for your clients?</p>
       <textarea class="pf-input pf-textarea" id="q-what" placeholder="e.g. I help busy women build confidence through 1:1 coaching and group programs"></textarea>
       <div class="pf-nav">
@@ -231,6 +231,8 @@
       <h2 class="pf-step-heading">Where are you based?</h2>
       <p class="pf-step-sub">City and country. This helps with local SEO and positioning.</p>
       <input class="pf-input" type="text" id="q-location" placeholder="e.g. Sydney, Australia" />
+      <label class="pf-step-sub" style="margin-bottom:8px; display:block;">Where do you serve your clients?</label>
+      <input class="pf-input" type="text" id="q-serve" placeholder="e.g. Online, Sydney based, or both" />
       <div class="pf-nav">
         <button class="pf-btn-back" onclick="prevStep(4)">Back</button>
         <button class="pf-btn-next" onclick="nextStep(4)">Next</button>
@@ -548,6 +550,7 @@
     const what = getValue('q-what');
     const who = getValue('q-who');
     const location = getValue('q-location');
+    const serve = getValue('q-serve');
     const about = getValue('q-about');
     const services = getServices();
     const colours = getColours();
@@ -588,7 +591,7 @@
       const genRes = await fetch('/api/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, what, who, location, about, services, extraSections, extraInsights, colourInstruction })
+        body: JSON.stringify({ name, what, who, location, serve, about, services, extraSections, extraInsights, colourInstruction })
       });
 
       if (!genRes.ok) {
@@ -686,7 +689,7 @@
         </div>
       </div>`;
     document.getElementById('add-service-btn').style.display = 'block';
-    ['q-name','q-what','q-who','q-location','q-about','comp-0','comp-1','comp-2'].forEach(id => {
+    ['q-name','q-what','q-who','q-location','q-serve','q-about','comp-0','comp-1','comp-2'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.value = '';
     });
