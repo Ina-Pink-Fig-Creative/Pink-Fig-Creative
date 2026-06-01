@@ -1,10 +1,8 @@
 export default async function handler(req, res) {
-  // Only allow POST
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  // CORS — update this to your actual domain once live
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -48,28 +46,27 @@ MANDATORY HOMEPAGE STRUCTURE (ALL sections required):
 7. FOOTER: Business name, nav links, copyright, privacy policy placeholder, contact email placeholder.
 ${extraSections && extraSections.length ? '\n8. FROM COMPETITOR ANALYSIS: ' + extraSections.join(', ') + ' — weave in naturally.' : ''}
 
-COPY RULES (non-negotiable):
+COPY RULES:
 - First person only: "I", never "we"
 - Short punchy sentences
 - Warm, direct tone
 - Sentence case: only first word of each heading capitalised
-- No em dashes — use commas or full stops instead
+- No em dashes — commas or full stops instead
 - No italics
-- No filler or fluff
-- H1 between 5 and 8 words — count carefully
+- No filler
+- H1 between 5 and 8 words exactly
 - Speak directly to: ${who}
 - Mention ${location} naturally for local SEO
 
 DESIGN:
-- Clean modern HTML and embedded CSS
-- Colours: background #ffffff, accent sections #f6e4dc, headings #efb4b2, nav and key elements #5b395f, buttons #5b395f with white text, button hover #7a5280
-- Google Font: Montserrat (import from Google Fonts)
-- Fully mobile-responsive with media queries
-- Services as a 3-column card grid (stacks on mobile)
+- Clean modern HTML with embedded CSS
+- Google Font: Montserrat
+- Fully mobile-responsive
+- Services as card grid (3 col desktop, stacks mobile)
 - Testimonials as cards
-- Smooth CTA button hover transitions
+- Smooth button hover transitions
 
-OUTPUT: Return ONLY the complete HTML document starting with <!DOCTYPE html>. No explanation, no markdown, just the HTML.`;
+OUTPUT: Return ONLY the complete HTML starting with <!DOCTYPE html>. No explanation, no markdown.`;
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
