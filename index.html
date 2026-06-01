@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Homepage framework builder — Pink Fig Creative</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --pf-blush: #f6e4dc;
+    --pf-plum: #5b395f;
+    --pf-white: #ffffff;
+    --pf-plum-light: #7a5280;
+    --pf-blush-dark: #e8c9b8;
+    --pf-text: #3a2040;
+    --pf-muted: #8a6d90;
+    --pf-coral: #efb4b2;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--pf-white);
+    color: var(--pf-text);
+    min-height: 100vh;
+  }
+
+  .pf-header {
+    background: var(--pf-blush);
+    padding: 18px 32px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border-bottom: 1px solid var(--pf-blush-dark);
+  }
+
+  .pf-logo-img {
+    width: 46px;
+    height: 46px;
+    object-fit: contain;
+  }
+
+  .pf-header-text h1 {
+    font-size: 17px;
+    color: var(--pf-plum);
+    font-weight: 600;
+  }
+
+  .pf-header-text p {
+    font-size: 12px;
+    color: var(--pf-muted);
+    margin-top: 1px;
+  }
+
+  .pf-body {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 36px 28px 60px;
+  }
+
+  .pf-progress {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 28px;
+  }
+
+  .pf-dot {
+    flex: 1;
+    height: 3px;
+    background: var(--pf-blush-dark);
+    border-radius: 2px;
+    transition: background 0.3s;
+  }
+
+  .pf-dot.active { background: var(--pf-plum); }
+  .pf-dot.done { background: var(--pf-plum-light); }
+
+  .pf-step { display: none; }
+  .pf-step.visible { display: block; }
+
+  .pf-step-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--pf-muted);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  .pf-step-heading {
+    font-size: 22px;
+    color: var(--pf-coral);
+    margin-bottom: 6px;
+    line-height: 1.3;
+    font-weight: 600;
+  }
+
+  .pf-step-sub {
+    font-size: 14px;
+    color: var(--pf-muted);
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+
+  .pf-input {
+    width: 100%;
+    background: var(--pf-white);
+    border: 1.5px solid var(--pf-blush-dark);
+    border-radius: 10px;
+    padding: 13px 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    color: var(--pf-text);
+    outline: none;
+    transition: border-color 0.2s;
+    margin-bottom: 10px;
+  }
+
+  .pf-input:focus { border-color: var(--pf-plum); }
+  .pf-textarea { resize: vertical; min-height: 80px; }
+
+  .pf-service-row {
+    background: var(--pf-blush);
+    border: 1.5px solid var(--pf-blush-dark);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+
+  .pf-row-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--pf-muted);
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+
+  .pf-service-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .pf-service-fields input,
+  .pf-service-desc input {
+    background: var(--pf-white);
+    border: 1px solid var(--pf-blush-dark);
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: var(--pf-text);
+    outline: none;
+    width: 100%;
+    transition: border-color 0.2s;
+  }
+
+  .pf-service-fields input:focus,
+  .pf-service-desc input:focus { border-color: var(--pf-plum); }
+
+  .pf-service-desc { margin-top: 8px; }
+
+  .pf-add-btn {
+    background: transparent;
+    border: 1.5px dashed var(--pf-plum-light);
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    color: var(--pf-plum-light);
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    transition: all 0.2s;
+    margin-bottom: 10px;
+  }
+
+  .pf-add-btn:hover {
+    background: rgba(91,57,95,0.06);
+    border-color: var(--pf-plum);
+    color: var(--pf-plum);
+  }
+
+  .pf-nav {
+    display: flex;
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  .pf-btn-back {
+    background: transparent;
+    border: 1.5px solid var(--pf-blush-dark);
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    color: var(--pf-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .pf-btn-back:hover { border-color: var(--pf-plum-light); color: var(--pf-plum); }
+
+  .pf-btn-next {
+    flex: 1;
+    background: var(--pf-plum);
+    border: none;
+    border-radius: 10px;
+    padding: 13px 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--pf-white);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .pf-btn-next:hover { background: var(--pf-plum-light); }
+
+  .pf-btn-generate {
+    flex: 1;
+    background: var(--pf-plum);
+    border: none;
+    border-radius: 10px;
+    padding: 14px 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--pf-white);
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .pf-btn-generate:hover { background: var(--pf-plum-light); }
+  .pf-btn-generate:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .pf-tip {
+    background: rgba(239,180,178,0.15);
+    border-left: 3px solid var(--pf-coral);
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--pf-plum);
+    margin-bottom: 18px;
+    line-height: 1.6;
+  }
+
+  .pf-optional-tag {
+    font-size: 11px;
+    background: rgba(239,180,178,0.2);
+    color: var(--pf-coral);
+    padding: 2px 7px;
+    border-radius: 4px;
+    margin-left: 6px;
+    font-weight: 400;
+    vertical-align: middle;
+  }
+
+  .pf-loading {
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+  }
+
+  .pf-loading.visible { display: block; }
+
+  .pf-spinner {
+    width: 48px;
+    height: 48px;
+    border: 3px solid var(--pf-blush-dark);
+    border-top-color: var(--pf-plum);
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+    margin: 0 auto 20px;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .pf-loading h3 {
+    font-size: 18px;
+    color: var(--pf-coral);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  .pf-loading p { font-size: 13px; color: var(--pf-muted); }
+
+  .pf-loading-status {
+    font-size: 12px;
+    color: var(--pf-plum-light);
+    margin-top: 14px;
+    min-height: 20px;
+  }
+
+  .pf-result { display: none; }
+  .pf-result.visible { display: block; }
+
+  .pf-result-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .pf-result-title {
+    font-size: 18px;
+    color: var(--pf-coral);
+    font-weight: 600;
+  }
+
+  .pf-result-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .pf-btn-action {
+    background: var(--pf-white);
+    border: 1.5px solid var(--pf-blush-dark);
+    border-radius: 8px;
+    padding: 9px 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    color: var(--pf-plum);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+  }
+
+  .pf-btn-action:hover {
+    border-color: var(--pf-plum);
+    background: var(--pf-blush);
+  }
+
+  .pf-structure-info {
+    background: var(--pf-blush);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+  }
+
+  .pf-structure-info p {
+    font-size: 13px;
+    color: var(--pf-muted);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  .pf-sections-used { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  .pf-badge {
+    background: var(--pf-plum);
+    color: var(--pf-white);
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  .pf-badge.extra {
+    background: transparent;
+    border: 1.5px solid var(--pf-coral);
+    color: var(--pf-plum);
+  }
+
+  .pf-output-frame {
+    border-radius: 12px;
+    border: 1.5px solid var(--pf-blush-dark);
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+
+  .pf-output-tabs {
+    display: flex;
+    border-bottom: 1.5px solid var(--pf-blush-dark);
+    background: var(--pf-blush);
+  }
+
+  .pf-tab {
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--pf-muted);
+    cursor: pointer;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1.5px;
+    background: transparent;
+    font-family: 'Montserrat', sans-serif;
+    transition: all 0.2s;
+  }
+
+  .pf-tab.active {
+    color: var(--pf-plum);
+    border-bottom-color: var(--pf-plum);
+    background: var(--pf-white);
+  }
+
+  .pf-tab-content { display: none; }
+  .pf-tab-content.active { display: block; }
+
+  .pf-preview-wrap { height: 560px; overflow: hidden; }
+  .pf-preview-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
+
+  .pf-code-wrap {
+    height: 560px;
+    overflow-y: auto;
+    padding: 16px;
+    background: #fafafa;
+  }
+
+  .pf-code-wrap pre {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: var(--pf-text);
+    white-space: pre-wrap;
+    word-break: break-all;
+    line-height: 1.6;
+  }
+
+  .pf-competitor-notes {
+    background: var(--pf-white);
+    border: 1.5px solid var(--pf-coral);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 16px;
+  }
+
+  .pf-competitor-notes h4 {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--pf-coral);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .pf-competitor-notes ul { list-style: none; padding: 0; }
+
+  .pf-competitor-notes li {
+    font-size: 13px;
+    color: var(--pf-plum);
+    padding: 7px 0;
+    border-bottom: 1px solid var(--pf-blush-dark);
+    line-height: 1.5;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .pf-competitor-notes li:last-child { border-bottom: none; }
+
+  .pf-note-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--pf-coral);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+
+  .pf-error {
+    background: #fef0f0;
+    border: 1.5px solid #f5c6c6;
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 13px;
+    color: #c0392b;
+    margin-top: 12px;
+    line-height: 1.5;
+    display: none;
+  }
+
+  .pf-error.visible { display: block; }
+
+  .pf-footer-note {
+    text-align: center;
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid var(--pf-blush-dark);
+  }
+
+  .pf-footer-note p {
+    font-size: 12px;
+    color: var(--pf-muted);
+    line-height: 2;
+  }
+
+  .pf-footer-note a { color: var(--pf-plum); text-decoration: none; font-weight: 600; }
+  .pf-footer-note a:hover { color: var(--pf-coral); }
+
+  @media (max-width: 600px) {
+    .pf-body { padding: 24px 18px 40px; }
+    .pf-header { padding: 14px 18px; }
+    .pf-step-heading { font-size: 19px; }
+    .pf-service-fields { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="pf-header">
+  <img src="https://www.pinkfigcreative.com.au/s/Pink-Fig-Instagram-Intagram.png" class="pf-logo-img" alt="Pink Fig Creative" onerror="this.style.display='none'" />
+  <div class="pf-header-text">
+    <h1>Homepage framework builder</h1>
+    <p>Pink Fig Creative</p>
+  </div>
+</div>
+
+<div class="pf-body">
+
+  <div id="pf-steps-container">
+    <div class="pf-progress" id="pf-progress"></div>
+
+    <div class="pf-step visible" id="step-0">
+      <p class="pf-step-label">Step 1 of 6</p>
+      <h2 class="pf-step-heading">What's your business name?</h2>
+      <p class="pf-step-sub">This will appear throughout your homepage copy.</p>
+      <input class="pf-input" type="text" id="q-name" placeholder="e.g. Bloom Coaching" />
+      <div class="pf-nav">
+        <button class="pf-btn-next" onclick="nextStep(0)">Next</button>
+      </div>
+    </div>
+
+    <div class="pf-step" id="step-1">
+      <p class="pf-step-label">Step 2 of 6</p>
+      <h2 class="pf-step-heading">What do you do?</h2>
+      <p class="pf-step-sub">In plain terms. What service do you provide and what outcome does it create for your clients?</p>
+      <textarea class="pf-input pf-textarea" id="q-what" placeholder="e.g. I help busy women build confidence through 1:1 coaching and group programs"></textarea>
+      <div class="pf-nav">
+        <button class="pf-btn-back" onclick="prevStep(1)">Back</button>
+        <button class="pf-btn-next" onclick="nextStep(1)">Next</button>
+      </div>
+    </div>
+
+    <div class="pf-step" id="step-2">
+      <p class="pf-step-label">Step 3 of 6</p>
+      <h2 class="pf-step-heading">Who do you work with?</h2>
+      <p class="pf-step-sub">Describe your ideal client. The more specific, the better your copy will be.</p>
+      <textarea class="pf-input pf-textarea" id="q-who" placeholder="e.g. Female entrepreneurs in their 30s and 40s who feel stuck and overwhelmed in their business"></textarea>
+      <div class="pf-nav">
+        <button class="pf-btn-back" onclick="prevStep(2)">Back</button>
+        <button class="pf-btn-next" onclick="nextStep(2)">Next</button>
+      </div>
+    </div>
+
+    <div class="pf-step" id="step-3">
+      <p class="pf-step-label">Step 4 of 6</p>
+      <h2 class="pf-step-heading">Where are you based?</h2>
+      <p class="pf-step-sub">City and country. This helps with local SEO and positioning.</p>
+      <input class="pf-input" type="text" id="q-location" placeholder="e.g. Sydney, Australia" />
+      <div class="pf-nav">
+        <button class="pf-btn-back" onclick="prevStep(3)">Back</button>
+        <button class="pf-btn-next" onclick="nextStep(3)">Next</button>
+      </div>
+    </div>
+
+    <div class="pf-step" id="step-4">
+      <p class="pf-step-label">Step 5 of 6</p>
+      <h2 class="pf-step-heading">What services do you offer?</h2>
+      <p class="pf-step-sub">Add up to 3. Include a name, price, and short description for each.</p>
+      <div id="services-container">
+        <div class="pf-service-row">
+          <p class="pf-row-label">Service 1</p>
+          <div class="pf-service-fields">
+            <input type="text" placeholder="Service name" id="s0-name" />
+            <input type="text" placeholder="Price (e.g. $500)" id="s0-price" />
+          </div>
+          <div class="pf-service-desc">
+            <input type="text" placeholder="One-line description" id="s0-desc" />
+          </div>
+        </div>
+      </div>
+      <button class="pf-add-btn" id="add-service-btn" onclick="addService()">+ Add another service</button>
+      <div class="pf-nav">
+        <button class="pf-btn-back" onclick="prevStep(4)">Back</button>
+        <button class="pf-btn-next" onclick="nextStep(4)">Next</button>
+      </div>
+    </div>
+
+    <div class="pf-step" id="step-5">
+      <p class="pf-step-label">Step 6 of 6</p>
+      <h2 class="pf-step-heading">Who are your competitors? <span class="pf-optional-tag">optional</span></h2>
+      <p class="pf-step-sub">Add up to 3 competitor websites. We'll use them for inspiration and check if there's anything worth adding to your homepage.</p>
+      <div class="pf-tip">
+        We'll visit your competitors' websites, see what sections and ideas they're using, and pull the best bits into your homepage framework. You'll also get a short checklist of things worth noting from their sites.
+      </div>
+      <input class="pf-input" type="url" id="comp-0" placeholder="https://competitor1.com" />
+      <input class="pf-input" type="url" id="comp-1" placeholder="https://competitor2.com" />
+      <input class="pf-input" type="url" id="comp-2" placeholder="https://competitor3.com" />
+      <div class="pf-nav">
+        <button class="pf-btn-back" onclick="prevStep(5)">Back</button>
+        <button class="pf-btn-generate" onclick="generate()">&#10024; Generate my homepage</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="pf-loading" id="pf-loading">
+    <div class="pf-spinner"></div>
+    <h3>Building your homepage...</h3>
+    <p>This takes about 30 seconds.</p>
+    <p class="pf-loading-status" id="loading-status">Getting started...</p>
+  </div>
+
+  <div class="pf-result" id="pf-result">
+    <div class="pf-result-header">
+      <p class="pf-result-title">Your homepage is ready</p>
+      <div class="pf-result-actions">
+        <button class="pf-btn-action" onclick="copyCode()">Copy HTML</button>
+        <button class="pf-btn-action" onclick="downloadHTML()">Download HTML</button>
+        <button class="pf-btn-action" onclick="openInNewTab()">Preview in new tab</button>
+        <button class="pf-btn-action" onclick="restart()">Start over</button>
+      </div>
+    </div>
+
+    <div class="pf-structure-info">
+      <p>Sections included:</p>
+      <div class="pf-sections-used" id="sections-list"></div>
+    </div>
+
+    <div class="pf-output-frame">
+      <div class="pf-output-tabs">
+        <button class="pf-tab active" onclick="switchTab('preview')">Preview</button>
+        <button class="pf-tab" onclick="switchTab('code')">HTML code</button>
+      </div>
+      <div class="pf-tab-content active" id="tab-preview">
+        <div class="pf-preview-wrap">
+          <iframe id="preview-frame" title="Homepage preview"></iframe>
+        </div>
+      </div>
+      <div class="pf-tab-content" id="tab-code">
+        <div class="pf-code-wrap">
+          <pre id="code-output"></pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="pf-competitor-notes" id="pf-competitor-notes" style="display:none;">
+      <h4>Things to check on your competitors</h4>
+      <ul id="competitor-notes-list"></ul>
+    </div>
+
+    <div class="pf-error" id="pf-error"></div>
+  </div>
+
+  <div class="pf-footer-note">
+    <p>Built with the Pink Fig Creative homepage framework <a href="https://www.pinkfigcreative.com.au/secrets-to-a-homepage-that-converts" target="_blank">Secrets to a homepage that converts</a> + competitors analysis.<br>
+    Ready to build it? DIY with the <a href="https://www.pinkfigcreative.com.au/website-launch-roadmap" target="_blank">Website Launch Roadmap</a></p>
+  </div>
+
+</div>
+
+<script>
+  // !! IMPORTANT: Replace this URL with your actual Vercel deployment URL once live !!
+  // e.g. https://pinkfig-homepage-generator.vercel.app
+  const API_BASE = 'REPLACE_WITH_YOUR_VERCEL_URL';
+
+  const TOTAL_STEPS = 6;
+  let currentStep = 0;
+  let serviceCount = 1;
+  let generatedHTML = '';
+
+  function buildProgress() {
+    const el = document.getElementById('pf-progress');
+    el.innerHTML = '';
+    for (let i = 0; i < TOTAL_STEPS; i++) {
+      const d = document.createElement('div');
+      d.className = 'pf-dot' + (i === currentStep ? ' active' : i < currentStep ? ' done' : '');
+      el.appendChild(d);
+    }
+  }
+
+  buildProgress();
+
+  function showStep(n) {
+    document.querySelectorAll('.pf-step').forEach(s => s.classList.remove('visible'));
+    const el = document.getElementById('step-' + n);
+    if (el) el.classList.add('visible');
+    currentStep = n;
+    buildProgress();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function getValue(id) {
+    const el = document.getElementById(id);
+    return el ? el.value.trim() : '';
+  }
+
+  function nextStep(from) {
+    const validations = {
+      0: () => getValue('q-name'),
+      1: () => getValue('q-what'),
+      2: () => getValue('q-who'),
+      3: () => getValue('q-location'),
+      4: () => getValue('s0-name'),
+    };
+    if (validations[from] && !validations[from]()) {
+      const inputs = document.querySelectorAll('#step-' + from + ' .pf-input, #step-' + from + ' input, #step-' + from + ' textarea');
+      inputs.forEach(i => { i.style.borderColor = '#efb4b2'; setTimeout(() => { i.style.borderColor = ''; }, 1500); });
+      return;
+    }
+    showStep(from + 1);
+  }
+
+  function prevStep(from) { showStep(from - 1); }
+
+  function addService() {
+    if (serviceCount >= 3) return;
+    const idx = serviceCount;
+    const row = document.createElement('div');
+    row.className = 'pf-service-row';
+    row.innerHTML = `
+      <p class="pf-row-label">Service ${idx + 1}</p>
+      <div class="pf-service-fields">
+        <input type="text" placeholder="Service name" id="s${idx}-name" />
+        <input type="text" placeholder="Price (e.g. $500)" id="s${idx}-price" />
+      </div>
+      <div class="pf-service-desc">
+        <input type="text" placeholder="One-line description" id="s${idx}-desc" />
+      </div>`;
+    document.getElementById('services-container').appendChild(row);
+    serviceCount++;
+    if (serviceCount >= 3) document.getElementById('add-service-btn').style.display = 'none';
+  }
+
+  function getServices() {
+    const services = [];
+    for (let i = 0; i < serviceCount; i++) {
+      const name = getValue('s' + i + '-name');
+      const price = getValue('s' + i + '-price');
+      const desc = getValue('s' + i + '-desc');
+      if (name) services.push({ name, price, desc });
+    }
+    return services;
+  }
+
+  function getCompetitors() {
+    return [getValue('comp-0'), getValue('comp-1'), getValue('comp-2')].filter(Boolean);
+  }
+
+  function switchTab(tab) {
+    document.querySelectorAll('.pf-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.pf-tab-content').forEach(t => t.classList.remove('active'));
+    if (tab === 'preview') {
+      document.querySelectorAll('.pf-tab')[0].classList.add('active');
+      document.getElementById('tab-preview').classList.add('active');
+    } else {
+      document.querySelectorAll('.pf-tab')[1].classList.add('active');
+      document.getElementById('tab-code').classList.add('active');
+    }
+  }
+
+  const statusMessages = [
+    'Visiting competitor websites...',
+    'Reading their homepage structures...',
+    'Identifying what they do well...',
+    'Writing your hero section...',
+    'Crafting your services copy...',
+    'Building the about section...',
+    'Adding the final touches...'
+  ];
+
+  let statusInterval;
+
+  function startStatusCycle() {
+    let i = 0;
+    const el = document.getElementById('loading-status');
+    el.textContent = statusMessages[0];
+    statusInterval = setInterval(() => {
+      i = (i + 1) % statusMessages.length;
+      el.textContent = statusMessages[i];
+    }, 3500);
+  }
+
+  function stopStatusCycle() { clearInterval(statusInterval); }
+
+  async function generate() {
+    const name = getValue('q-name');
+    const what = getValue('q-what');
+    const who = getValue('q-who');
+    const location = getValue('q-location');
+    const services = getServices();
+    const competitors = getCompetitors();
+
+    document.getElementById('pf-steps-container').style.display = 'none';
+    document.getElementById('pf-loading').classList.add('visible');
+    document.getElementById('pf-result').classList.remove('visible');
+    document.getElementById('pf-error').classList.remove('visible');
+    startStatusCycle();
+
+    // Step 1: competitor analysis (if provided)
+    let extraSections = [];
+    let extraInsights = '';
+    let checklist = [];
+
+    if (competitors.length) {
+      try {
+        const compRes = await fetch(`${API_BASE}/api/analyse-competitors`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ competitors })
+        });
+        const compData = await compRes.json();
+        extraSections = compData.extra_sections || [];
+        extraInsights = compData.insights || '';
+        checklist = compData.checklist || [];
+      } catch (e) {
+        // Competitor analysis failed silently — continue without it
+      }
+    }
+
+    stopStatusCycle();
+    document.getElementById('loading-status').textContent = 'Writing your copy...';
+
+    // Step 2: generate homepage
+    try {
+      const genRes = await fetch(`${API_BASE}/api/generate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, what, who, location, services, extraSections, extraInsights })
+      });
+
+      const genData = await genRes.json();
+
+      if (!genRes.ok || genData.error) {
+        throw new Error(genData.error || 'Generation failed');
+      }
+
+      generatedHTML = genData.html;
+
+      document.getElementById('pf-loading').classList.remove('visible');
+      document.getElementById('pf-result').classList.add('visible');
+
+      // Render preview
+      const iframe = document.getElementById('preview-frame');
+      const doc = iframe.contentDocument || iframe.contentWindow.document;
+      doc.open();
+      doc.write(generatedHTML);
+      doc.close();
+
+      document.getElementById('code-output').textContent = generatedHTML;
+
+      // Sections badges
+      const mandatorySections = ['Hero', 'Ideal customer', 'Services', 'About', 'Testimonials', 'CTA', 'Footer'];
+      const sectionsList = document.getElementById('sections-list');
+      sectionsList.innerHTML = '';
+      mandatorySections.forEach(s => {
+        const badge = document.createElement('span');
+        badge.className = 'pf-badge';
+        badge.textContent = s;
+        sectionsList.appendChild(badge);
+      });
+      extraSections.forEach(s => {
+        const badge = document.createElement('span');
+        badge.className = 'pf-badge extra';
+        badge.textContent = s;
+        sectionsList.appendChild(badge);
+      });
+
+      // Competitor notes
+      if (checklist.length) {
+        const notesBox = document.getElementById('pf-competitor-notes');
+        const notesList = document.getElementById('competitor-notes-list');
+        notesList.innerHTML = '';
+        checklist.slice(0, 3).forEach(note => {
+          const li = document.createElement('li');
+          li.innerHTML = `<span class="pf-note-dot"></span><span>${note}</span>`;
+          notesList.appendChild(li);
+        });
+        notesBox.style.display = 'block';
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    } catch (err) {
+      document.getElementById('pf-loading').classList.remove('visible');
+      document.getElementById('pf-steps-container').style.display = 'block';
+      document.getElementById('pf-result').classList.add('visible');
+      showStep(5);
+      const errEl = document.getElementById('pf-error');
+      errEl.textContent = 'Something went wrong: ' + err.message + '. Please try again.';
+      errEl.classList.add('visible');
+    }
+  }
+
+  function openInNewTab() {
+    if (!generatedHTML) return;
+    const blob = new Blob([generatedHTML], { type: 'text/html' });
+    window.open(URL.createObjectURL(blob), '_blank');
+  }
+
+  function downloadHTML() {
+    if (!generatedHTML) return;
+    const blob = new Blob([generatedHTML], { type: 'text/html' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'my-homepage.html';
+    a.click();
+  }
+
+  function copyCode() {
+    navigator.clipboard.writeText(generatedHTML).then(() => {
+      const btn = event.target;
+      btn.textContent = 'Copied!';
+      setTimeout(() => { btn.textContent = 'Copy HTML'; }, 2000);
+    });
+  }
+
+  function restart() {
+    currentStep = 0;
+    serviceCount = 1;
+    generatedHTML = '';
+    document.getElementById('pf-result').classList.remove('visible');
+    document.getElementById('pf-loading').classList.remove('visible');
+    document.getElementById('pf-error').classList.remove('visible');
+    document.getElementById('pf-competitor-notes').style.display = 'none';
+    document.getElementById('pf-steps-container').style.display = 'block';
+    document.getElementById('services-container').innerHTML = `
+      <div class="pf-service-row">
+        <p class="pf-row-label">Service 1</p>
+        <div class="pf-service-fields">
+          <input type="text" placeholder="Service name" id="s0-name" />
+          <input type="text" placeholder="Price (e.g. $500)" id="s0-price" />
+        </div>
+        <div class="pf-service-desc">
+          <input type="text" placeholder="One-line description" id="s0-desc" />
+        </div>
+      </div>`;
+    document.getElementById('add-service-btn').style.display = 'block';
+    ['q-name','q-what','q-who','q-location','comp-0','comp-1','comp-2'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    showStep(0);
+  }
+</script>
+</body>
+</html>
