@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Homepage framework builder — Pink Fig Creative</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root {
     --pf-blush: #f6e4dc;
@@ -35,555 +35,118 @@
     border-bottom: 1px solid var(--pf-blush-dark);
   }
 
-  .pf-logo-img {
-    width: 46px;
-    height: 46px;
-    object-fit: contain;
-  }
+  .pf-logo-img { width: 46px; height: 46px; object-fit: contain; }
 
-  .pf-header-text h1 {
-    font-size: 17px;
-    color: var(--pf-plum);
-    font-weight: 600;
-  }
+  .pf-header-text h1 { font-size: 17px; color: var(--pf-plum); font-weight: 600; }
+  .pf-header-text p { font-size: 12px; color: var(--pf-muted); margin-top: 1px; }
 
-  .pf-header-text p {
-    font-size: 12px;
-    color: var(--pf-muted);
-    margin-top: 1px;
-  }
+  .pf-body { max-width: 680px; margin: 0 auto; padding: 36px 28px 60px; }
 
-  .pf-body {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 36px 28px 60px;
-  }
-
-  .pf-progress {
-    display: flex;
-    gap: 6px;
-    margin-bottom: 28px;
-  }
-
-  .pf-dot {
-    flex: 1;
-    height: 3px;
-    background: var(--pf-blush-dark);
-    border-radius: 2px;
-    transition: background 0.3s;
-  }
-
+  .pf-progress { display: flex; gap: 6px; margin-bottom: 28px; }
+  .pf-dot { flex: 1; height: 3px; background: var(--pf-blush-dark); border-radius: 2px; transition: background 0.3s; }
   .pf-dot.active { background: var(--pf-plum); }
   .pf-dot.done { background: var(--pf-plum-light); }
 
   .pf-step { display: none; }
   .pf-step.visible { display: block; }
 
-  .pf-step-label {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--pf-muted);
-    margin-bottom: 6px;
-    font-weight: 500;
-  }
+  .pf-step-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--pf-muted); margin-bottom: 6px; font-weight: 500; }
+  .pf-step-heading { font-size: 22px; color: var(--pf-coral); margin-bottom: 6px; line-height: 1.3; font-weight: 600; }
+  .pf-step-sub { font-size: 14px; color: var(--pf-muted); margin-bottom: 20px; line-height: 1.5; }
 
-  .pf-step-heading {
-    font-size: 22px;
-    color: var(--pf-coral);
-    margin-bottom: 6px;
-    line-height: 1.3;
-    font-weight: 600;
-  }
+  .pf-welcome { background: var(--pf-blush); border-radius: 14px; padding: 28px 24px; margin-bottom: 8px; }
+  .pf-welcome-title { font-size: 28px; color: var(--pf-plum); font-weight: 700; margin-bottom: 4px; line-height: 1.2; }
+  .pf-welcome-sub { font-size: 14px; color: var(--pf-plum); font-weight: 500; margin-bottom: 18px; }
+  .pf-welcome p { font-size: 14px; color: var(--pf-plum); line-height: 1.8; margin-bottom: 12px; }
+  .pf-welcome p:last-of-type { margin-bottom: 0; }
+  .pf-welcome strong { font-weight: 600; }
 
-  .pf-step-sub {
-    font-size: 14px;
-    color: var(--pf-muted);
-    margin-bottom: 20px;
-    line-height: 1.5;
-  }
-
-  .pf-welcome {
-    background: var(--pf-blush);
-    border-radius: 14px;
-    padding: 32px 28px;
-    margin-bottom: 8px;
-  }
-
-  .pf-welcome-logo {
-    width: 56px;
-    height: 56px;
-    object-fit: contain;
-    margin-bottom: 18px;
-    display: block;
-  }
-
-  .pf-welcome h2 {
-    font-size: 20px;
-    color: var(--pf-coral);
-    font-weight: 600;
-    margin-bottom: 16px;
-    line-height: 1.3;
-  }
-
-  .pf-welcome p {
-    font-size: 14px;
-    color: var(--pf-plum);
-    line-height: 1.8;
-    margin-bottom: 12px;
-  }
-
-  .pf-welcome p:last-of-type { margin-bottom: 24px; }
-
-  .pf-welcome strong {
-    color: var(--pf-plum);
-    font-weight: 600;
-  }
-
-  .pf-input {
-    width: 100%;
-    background: var(--pf-white);
-    border: 1.5px solid var(--pf-blush-dark);
-    border-radius: 10px;
-    padding: 13px 16px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 15px;
-    color: var(--pf-text);
-    outline: none;
-    transition: border-color 0.2s;
-    margin-bottom: 10px;
-  }
-
+  .pf-input { width: 100%; background: var(--pf-white); border: 1.5px solid var(--pf-blush-dark); border-radius: 10px; padding: 13px 16px; font-family: 'Montserrat', sans-serif; font-size: 15px; color: var(--pf-text); outline: none; transition: border-color 0.2s; margin-bottom: 10px; display: block; }
   .pf-input:focus { border-color: var(--pf-plum); }
   .pf-textarea { resize: vertical; min-height: 80px; }
 
-  .pf-service-row {
-    background: var(--pf-blush);
-    border: 1.5px solid var(--pf-blush-dark);
-    border-radius: 10px;
-    padding: 14px 16px;
-    margin-bottom: 10px;
-  }
+  .pf-char-counter { font-size: 11px; color: var(--pf-muted); text-align: right; margin-top: -8px; margin-bottom: 10px; }
+  .pf-char-counter.warn { color: var(--pf-coral); }
 
-  .pf-row-label {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--pf-muted);
-    margin-bottom: 8px;
-    font-weight: 500;
-  }
-
-  .pf-service-fields {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
-
-  .pf-service-fields input,
-  .pf-service-desc input {
-    background: var(--pf-white);
-    border: 1px solid var(--pf-blush-dark);
-    border-radius: 8px;
-    padding: 9px 12px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-    color: var(--pf-text);
-    outline: none;
-    width: 100%;
-    transition: border-color 0.2s;
-  }
-
-  .pf-service-fields input:focus,
-  .pf-service-desc input:focus { border-color: var(--pf-plum); }
-
+  .pf-service-row { background: var(--pf-blush); border: 1.5px solid var(--pf-blush-dark); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; }
+  .pf-row-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--pf-muted); margin-bottom: 8px; font-weight: 500; }
+  .pf-service-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .pf-service-fields input, .pf-service-desc input { background: var(--pf-white); border: 1px solid var(--pf-blush-dark); border-radius: 8px; padding: 9px 12px; font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--pf-text); outline: none; width: 100%; transition: border-color 0.2s; }
+  .pf-service-fields input:focus, .pf-service-desc input:focus { border-color: var(--pf-plum); }
   .pf-service-desc { margin-top: 8px; }
 
-  .pf-add-btn {
-    background: transparent;
-    border: 1.5px dashed var(--pf-plum-light);
-    border-radius: 10px;
-    padding: 10px 16px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 13px;
-    color: var(--pf-plum-light);
-    cursor: pointer;
-    width: 100%;
-    text-align: center;
-    transition: all 0.2s;
-    margin-bottom: 10px;
-  }
+  .pf-add-btn { background: transparent; border: 1.5px dashed var(--pf-plum-light); border-radius: 10px; padding: 10px 16px; font-family: 'Montserrat', sans-serif; font-size: 13px; color: var(--pf-plum-light); cursor: pointer; width: 100%; text-align: center; transition: all 0.2s; margin-bottom: 10px; }
+  .pf-add-btn:hover { background: rgba(91,57,95,0.06); border-color: var(--pf-plum); color: var(--pf-plum); }
 
-  .pf-add-btn:hover {
-    background: rgba(91,57,95,0.06);
-    border-color: var(--pf-plum);
-    color: var(--pf-plum);
-  }
-
-  .pf-colours-toggle {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-
-  .pf-toggle-btn {
-    flex: 1;
-    padding: 11px 10px;
-    border-radius: 10px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-    border: 1.5px solid var(--pf-blush-dark);
-    background: var(--pf-white);
-    color: var(--pf-muted);
-    text-align: center;
-  }
-
-  .pf-toggle-btn.active {
-    background: var(--pf-plum);
-    color: var(--pf-white);
-    border-color: var(--pf-plum);
-  }
+  .pf-colours-toggle { display: flex; gap: 10px; margin-bottom: 20px; }
+  .pf-toggle-btn { flex: 1; padding: 11px 10px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s; border: 1.5px solid var(--pf-blush-dark); background: var(--pf-white); color: var(--pf-muted); text-align: center; }
+  .pf-toggle-btn.active { background: var(--pf-plum); color: var(--pf-white); border-color: var(--pf-plum); }
 
   .pf-colours-panel { display: none; }
   .pf-colours-panel.visible { display: block; }
 
-  .pf-colour-row {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-
-  .pf-colour-preview {
-    width: 42px;
-    height: 42px;
-    border-radius: 8px;
-    border: 1.5px solid var(--pf-blush-dark);
-    flex-shrink: 0;
-    cursor: pointer;
-    padding: 2px;
-    background: none;
-  }
-
-  .pf-colour-hex {
-    flex: 1;
-    background: var(--pf-white);
-    border: 1.5px solid var(--pf-blush-dark);
-    border-radius: 10px;
-    padding: 11px 14px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-    color: var(--pf-text);
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
+  .pf-colour-row { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; }
+  .pf-colour-swatch { width: 40px; height: 40px; border-radius: 8px; border: 1.5px solid var(--pf-blush-dark); flex-shrink: 0; padding: 2px; cursor: pointer; background: none; }
+  .pf-colour-hex { flex: 1; background: var(--pf-white); border: 1.5px solid var(--pf-blush-dark); border-radius: 10px; padding: 10px 14px; font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--pf-text); outline: none; transition: border-color 0.2s; }
   .pf-colour-hex:focus { border-color: var(--pf-plum); }
+  .pf-colour-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--pf-muted); font-weight: 500; width: 60px; flex-shrink: 0; }
 
-  .pf-colour-label {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--pf-muted);
-    font-weight: 500;
-    width: 60px;
-    flex-shrink: 0;
-  }
+  .pf-tip { background: rgba(239,180,178,0.15); border-left: 3px solid var(--pf-coral); border-radius: 0 8px 8px 0; padding: 10px 14px; font-size: 13px; color: var(--pf-plum); margin-bottom: 18px; line-height: 1.6; }
 
-  .pf-tip {
-    background: rgba(239,180,178,0.15);
-    border-left: 3px solid var(--pf-coral);
-    border-radius: 0 8px 8px 0;
-    padding: 10px 14px;
-    font-size: 13px;
-    color: var(--pf-plum);
-    margin-bottom: 18px;
-    line-height: 1.6;
-  }
+  .pf-optional-tag { font-size: 11px; background: rgba(239,180,178,0.2); color: var(--pf-coral); padding: 2px 7px; border-radius: 4px; margin-left: 6px; font-weight: 400; vertical-align: middle; }
 
-  .pf-optional-tag {
-    font-size: 11px;
-    background: rgba(239,180,178,0.2);
-    color: var(--pf-coral);
-    padding: 2px 7px;
-    border-radius: 4px;
-    margin-left: 6px;
-    font-weight: 400;
-    vertical-align: middle;
-  }
-
-  .pf-nav {
-    display: flex;
-    gap: 10px;
-    margin-top: 24px;
-  }
-
-  .pf-btn-back {
-    background: transparent;
-    border: 1.5px solid var(--pf-blush-dark);
-    border-radius: 10px;
-    padding: 12px 20px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-    color: var(--pf-muted);
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
+  .pf-nav { display: flex; gap: 10px; margin-top: 24px; }
+  .pf-btn-back { background: transparent; border: 1.5px solid var(--pf-blush-dark); border-radius: 10px; padding: 12px 20px; font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--pf-muted); cursor: pointer; transition: all 0.2s; }
   .pf-btn-back:hover { border-color: var(--pf-plum-light); color: var(--pf-plum); }
-
-  .pf-btn-next {
-    flex: 1;
-    background: var(--pf-plum);
-    border: none;
-    border-radius: 10px;
-    padding: 13px 20px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--pf-white);
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-
+  .pf-btn-next { flex: 1; background: var(--pf-plum); border: none; border-radius: 10px; padding: 13px 20px; font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 500; color: var(--pf-white); cursor: pointer; transition: background 0.2s; }
   .pf-btn-next:hover { background: var(--pf-plum-light); }
-
-  .pf-btn-generate {
-    flex: 1;
-    background: var(--pf-plum);
-    border: none;
-    border-radius: 10px;
-    padding: 14px 20px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--pf-white);
-    cursor: pointer;
-    transition: background 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-  }
-
+  .pf-btn-generate { flex: 1; background: var(--pf-plum); border: none; border-radius: 10px; padding: 14px 20px; font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 500; color: var(--pf-white); cursor: pointer; transition: background 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
   .pf-btn-generate:hover { background: var(--pf-plum-light); }
 
-  /* LOADING */
-  .pf-loading {
-    display: none;
-    text-align: center;
-    padding: 80px 20px;
-  }
-
+  .pf-loading { display: none; text-align: center; padding: 80px 20px; }
   .pf-loading.visible { display: block; }
-
-  .pf-spinner {
-    width: 48px;
-    height: 48px;
-    border: 3px solid var(--pf-blush-dark);
-    border-top-color: var(--pf-plum);
-    border-radius: 50%;
-    animation: spin 0.9s linear infinite;
-    margin: 0 auto 20px;
-  }
-
+  .pf-spinner { width: 48px; height: 48px; border: 3px solid var(--pf-blush-dark); border-top-color: var(--pf-plum); border-radius: 50%; animation: spin 0.9s linear infinite; margin: 0 auto 20px; }
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  .pf-loading h3 {
-    font-size: 18px;
-    color: var(--pf-coral);
-    margin-bottom: 6px;
-    font-weight: 600;
-  }
-
+  .pf-loading h3 { font-size: 18px; color: var(--pf-coral); margin-bottom: 6px; font-weight: 600; }
   .pf-loading p { font-size: 13px; color: var(--pf-muted); }
+  .pf-loading-status { font-size: 12px; color: var(--pf-plum-light); margin-top: 14px; min-height: 20px; }
 
-  .pf-loading-status {
-    font-size: 12px;
-    color: var(--pf-plum-light);
-    margin-top: 14px;
-    min-height: 20px;
-  }
-
-  /* RESULT PAGE */
   .pf-result { display: none; }
   .pf-result.visible { display: block; }
 
-  .pf-result-card {
-    background: var(--pf-blush);
-    border-radius: 16px;
-    padding: 40px 32px;
-    text-align: center;
-    margin-bottom: 24px;
-  }
+  .pf-result-card { background: var(--pf-blush); border-radius: 16px; padding: 40px 32px; text-align: center; margin-bottom: 24px; }
+  .pf-result-card h2 { font-size: 22px; color: var(--pf-coral); font-weight: 600; margin-bottom: 10px; }
+  .pf-result-card p { font-size: 14px; color: var(--pf-plum); line-height: 1.7; margin-bottom: 32px; }
 
-  .pf-result-card .pf-result-logo {
-    width: 52px;
-    height: 52px;
-    object-fit: contain;
-    margin: 0 auto 16px;
-    display: block;
-  }
-
-  .pf-result-card h2 {
-    font-size: 22px;
-    color: var(--pf-coral);
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-
-  .pf-result-card p {
-    font-size: 14px;
-    color: var(--pf-plum);
-    line-height: 1.6;
-    margin-bottom: 32px;
-  }
-
-  .pf-result-buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-
-  .pf-result-btn {
-    background: var(--pf-plum);
-    border: none;
-    border-radius: 10px;
-    padding: 16px 20px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--pf-white);
-    cursor: pointer;
-    transition: background 0.2s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-  }
-
+  .pf-result-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .pf-result-btn { background: var(--pf-plum); border: none; border-radius: 10px; padding: 16px 20px; font-family: 'Montserrat', sans-serif; cursor: pointer; transition: background 0.2s; display: flex; flex-direction: column; align-items: center; gap: 6px; }
   .pf-result-btn:hover { background: var(--pf-plum-light); }
+  .pf-result-btn.secondary { background: var(--pf-white); border: 1.5px solid var(--pf-blush-dark); }
+  .pf-result-btn.secondary:hover { border-color: var(--pf-plum); background: var(--pf-white); }
+  .btn-icon { font-size: 22px; }
+  .btn-label { font-size: 13px; font-weight: 500; color: var(--pf-white); }
+  .pf-result-btn.secondary .btn-label { color: var(--pf-plum); }
+  .btn-sub { font-size: 11px; color: var(--pf-white); opacity: 0.75; }
+  .pf-result-btn.secondary .btn-sub { color: var(--pf-muted); opacity: 1; }
 
-  .pf-result-btn.secondary {
-    background: var(--pf-white);
-    color: var(--pf-plum);
-    border: 1.5px solid var(--pf-blush-dark);
-  }
-
-  .pf-result-btn.secondary:hover {
-    border-color: var(--pf-plum);
-    background: var(--pf-white);
-  }
-
-  .pf-result-btn .btn-icon { font-size: 20px; }
-  .pf-result-btn .btn-label { font-size: 13px; }
-  .pf-result-btn .btn-sub { font-size: 11px; opacity: 0.75; }
-
-  .pf-sections-info {
-    background: var(--pf-white);
-    border: 1.5px solid var(--pf-blush-dark);
-    border-radius: 12px;
-    padding: 16px 18px;
-    margin-bottom: 16px;
-  }
-
-  .pf-sections-info p {
-    font-size: 12px;
-    color: var(--pf-muted);
-    font-weight: 500;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-
+  .pf-sections-info { background: var(--pf-white); border: 1.5px solid var(--pf-blush-dark); border-radius: 12px; padding: 16px 18px; margin-bottom: 16px; }
+  .pf-sections-info p { font-size: 12px; color: var(--pf-muted); font-weight: 500; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.06em; }
   .pf-sections-used { display: flex; flex-wrap: wrap; gap: 6px; }
+  .pf-badge { background: var(--pf-plum); color: var(--pf-white); font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
+  .pf-badge.extra { background: transparent; border: 1.5px solid var(--pf-coral); color: var(--pf-plum); }
 
-  .pf-badge {
-    background: var(--pf-plum);
-    color: var(--pf-white);
-    font-size: 11px;
-    padding: 3px 10px;
-    border-radius: 20px;
-    font-weight: 500;
-  }
-
-  .pf-badge.extra {
-    background: transparent;
-    border: 1.5px solid var(--pf-coral);
-    color: var(--pf-plum);
-  }
-
-  .pf-competitor-notes {
-    background: var(--pf-white);
-    border: 1.5px solid var(--pf-coral);
-    border-radius: 12px;
-    padding: 16px 18px;
-    margin-bottom: 16px;
-  }
-
-  .pf-competitor-notes h4 {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--pf-coral);
-    margin-bottom: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-
+  .pf-competitor-notes { background: var(--pf-white); border: 1.5px solid var(--pf-coral); border-radius: 12px; padding: 16px 18px; margin-bottom: 16px; }
+  .pf-competitor-notes h4 { font-size: 12px; font-weight: 600; color: var(--pf-coral); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
   .pf-competitor-notes ul { list-style: none; padding: 0; }
-
-  .pf-competitor-notes li {
-    font-size: 13px;
-    color: var(--pf-plum);
-    padding: 7px 0;
-    border-bottom: 1px solid var(--pf-blush-dark);
-    line-height: 1.5;
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-  }
-
+  .pf-competitor-notes li { font-size: 13px; color: var(--pf-plum); padding: 7px 0; border-bottom: 1px solid var(--pf-blush-dark); line-height: 1.5; display: flex; gap: 10px; align-items: flex-start; }
   .pf-competitor-notes li:last-child { border-bottom: none; }
+  .pf-note-dot { width: 6px; height: 6px; background: var(--pf-coral); border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
 
-  .pf-note-dot {
-    width: 6px;
-    height: 6px;
-    background: var(--pf-coral);
-    border-radius: 50%;
-    flex-shrink: 0;
-    margin-top: 6px;
-  }
-
-  .pf-error {
-    background: #fef0f0;
-    border: 1.5px solid #f5c6c6;
-    border-radius: 10px;
-    padding: 14px 16px;
-    font-size: 13px;
-    color: #c0392b;
-    margin-top: 12px;
-    line-height: 1.5;
-    display: none;
-  }
-
+  .pf-error { background: #fef0f0; border: 1.5px solid #f5c6c6; border-radius: 10px; padding: 14px 16px; font-size: 13px; color: #c0392b; margin-top: 12px; line-height: 1.5; display: none; }
   .pf-error.visible { display: block; }
 
-  .pf-footer-note {
-    text-align: center;
-    margin-top: 32px;
-    padding-top: 20px;
-    border-top: 1px solid var(--pf-blush-dark);
-  }
-
-  .pf-footer-note p {
-    font-size: 12px;
-    color: var(--pf-muted);
-    line-height: 2;
-  }
-
+  .pf-footer-note { text-align: center; margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--pf-blush-dark); }
+  .pf-footer-note p { font-size: 12px; color: var(--pf-muted); line-height: 2; }
   .pf-footer-note a { color: var(--pf-plum); text-decoration: none; font-weight: 600; }
   .pf-footer-note a:hover { color: var(--pf-coral); }
 
@@ -608,15 +171,14 @@
 </div>
 
 <div class="pf-body">
-
   <div id="pf-steps-container">
     <div class="pf-progress" id="pf-progress"></div>
 
     <!-- STEP 0: WELCOME -->
     <div class="pf-step visible" id="step-0">
       <div class="pf-welcome">
-        <img src="https://static1.squarespace.com/static/63e2e42b49b21e5c93a9ae87/t/63e2f04c0e78cd3e6c57042b/1675817037095/Pink+Fig+Instagram+Intagram.png" class="pf-welcome-logo" alt="Pink Fig Creative" onerror="this.style.display='none'" />
-        <h2>Welcome. This tool was built by Ina from Pink Fig Creative.</h2>
+        <p class="pf-welcome-title">Welcome.</p>
+        <p class="pf-welcome-sub">This tool was built by Ina from Pink Fig Creative.</p>
         <p>With over 7 years designing Squarespace websites for service-based businesses, I know the hardest part isn't the design. It's knowing what to say and where to put it on the website.</p>
         <p>This framework gives you exactly that. It's not a live website. It's a complete homepage structure with your copy, your services, and your voice built in seconds, ready to guide your build and use it as inspiration. Make the copy suggested yours, get in, make changes to it.</p>
         <p><strong>Get your homepage framework. Start building with confidence.</strong></p>
@@ -628,7 +190,7 @@
 
     <!-- STEP 1: BUSINESS NAME -->
     <div class="pf-step" id="step-1">
-      <p class="pf-step-label">Step 1 of 7</p>
+      <p class="pf-step-label">Step 1 of 8</p>
       <h2 class="pf-step-heading">What's your business name?</h2>
       <p class="pf-step-sub">This will appear throughout your homepage copy.</p>
       <input class="pf-input" type="text" id="q-name" placeholder="e.g. Bloom Coaching" />
@@ -640,7 +202,7 @@
 
     <!-- STEP 2: WHAT DO YOU DO -->
     <div class="pf-step" id="step-2">
-      <p class="pf-step-label">Step 2 of 7</p>
+      <p class="pf-step-label">Step 2 of 8</p>
       <h2 class="pf-step-heading">What do you do?</h2>
       <p class="pf-step-sub">In plain terms. What service do you provide and what outcome does it create for your clients?</p>
       <textarea class="pf-input pf-textarea" id="q-what" placeholder="e.g. I help busy women build confidence through 1:1 coaching and group programs"></textarea>
@@ -652,7 +214,7 @@
 
     <!-- STEP 3: WHO -->
     <div class="pf-step" id="step-3">
-      <p class="pf-step-label">Step 3 of 7</p>
+      <p class="pf-step-label">Step 3 of 8</p>
       <h2 class="pf-step-heading">Who do you work with?</h2>
       <p class="pf-step-sub">Describe your ideal client. The more specific, the better your copy will be.</p>
       <textarea class="pf-input pf-textarea" id="q-who" placeholder="e.g. Female entrepreneurs in their 30s and 40s who feel stuck and overwhelmed in their business"></textarea>
@@ -664,7 +226,7 @@
 
     <!-- STEP 4: LOCATION -->
     <div class="pf-step" id="step-4">
-      <p class="pf-step-label">Step 4 of 7</p>
+      <p class="pf-step-label">Step 4 of 8</p>
       <h2 class="pf-step-heading">Where are you based?</h2>
       <p class="pf-step-sub">City and country. This helps with local SEO and positioning.</p>
       <input class="pf-input" type="text" id="q-location" placeholder="e.g. Sydney, Australia" />
@@ -674,9 +236,22 @@
       </div>
     </div>
 
-    <!-- STEP 5: SERVICES -->
+    <!-- STEP 5: ABOUT YOU -->
     <div class="pf-step" id="step-5">
-      <p class="pf-step-label">Step 5 of 7</p>
+      <p class="pf-step-label">Step 5 of 8</p>
+      <h2 class="pf-step-heading">Tell us a little about you.</h2>
+      <p class="pf-step-sub">Up to 100 words. Share your background, why you started your business, and what makes you different. This goes into your about section.</p>
+      <textarea class="pf-input pf-textarea" id="q-about" placeholder="e.g. I'm a Sydney-based designer with 10 years of experience helping small businesses get online. I started my business because I believe every business deserves a beautiful website without the overwhelm..." style="min-height: 130px;" oninput="countChars(this, 'about-counter', 600)"></textarea>
+      <p class="pf-char-counter" id="about-counter">0 / 600</p>
+      <div class="pf-nav">
+        <button class="pf-btn-back" onclick="prevStep(5)">Back</button>
+        <button class="pf-btn-next" onclick="nextStep(5)">Next</button>
+      </div>
+    </div>
+
+    <!-- STEP 6: SERVICES -->
+    <div class="pf-step" id="step-6">
+      <p class="pf-step-label">Step 6 of 8</p>
       <h2 class="pf-step-heading">What services do you offer?</h2>
       <p class="pf-step-sub">Add up to 3. Include a name, price, and short description for each.</p>
       <div id="services-container">
@@ -693,14 +268,14 @@
       </div>
       <button class="pf-add-btn" id="add-service-btn" onclick="addService()">+ Add another service</button>
       <div class="pf-nav">
-        <button class="pf-btn-back" onclick="prevStep(5)">Back</button>
-        <button class="pf-btn-next" onclick="nextStep(5)">Next</button>
+        <button class="pf-btn-back" onclick="prevStep(6)">Back</button>
+        <button class="pf-btn-next" onclick="nextStep(6)">Next</button>
       </div>
     </div>
 
-    <!-- STEP 6: BRAND COLOURS -->
-    <div class="pf-step" id="step-6">
-      <p class="pf-step-label">Step 6 of 7</p>
+    <!-- STEP 7: BRAND COLOURS -->
+    <div class="pf-step" id="step-7">
+      <p class="pf-step-label">Step 7 of 8</p>
       <h2 class="pf-step-heading">Let's talk colours.</h2>
       <p class="pf-step-sub">If you already have brand colours, pop in up to 3 hex codes below. These will be applied directly to your homepage framework. Not there yet? That's completely fine. Just tell us one colour you're drawn to and we'll take it from there.</p>
 
@@ -713,26 +288,33 @@
       <div class="pf-colours-panel visible" id="panel-brand">
         <div class="pf-colour-row">
           <span class="pf-colour-label">Colour 1</span>
-          <input type="color" class="pf-colour-preview" id="cp-0" value="#5b395f" oninput="syncHex(0)" />
+          <input type="color" class="pf-colour-swatch" id="cp-0" value="#5b395f" oninput="syncHex(0)" />
           <input type="text" class="pf-colour-hex" id="ch-0" placeholder="#5b395f" oninput="syncPicker(0)" maxlength="7" />
         </div>
         <div class="pf-colour-row">
           <span class="pf-colour-label">Colour 2</span>
-          <input type="color" class="pf-colour-preview" id="cp-1" value="#f6e4dc" oninput="syncHex(1)" />
+          <input type="color" class="pf-colour-swatch" id="cp-1" value="#f6e4dc" oninput="syncHex(1)" />
           <input type="text" class="pf-colour-hex" id="ch-1" placeholder="#f6e4dc" oninput="syncPicker(1)" maxlength="7" />
         </div>
         <div class="pf-colour-row">
           <span class="pf-colour-label">Colour 3</span>
-          <input type="color" class="pf-colour-preview" id="cp-2" value="#efb4b2" oninput="syncHex(2)" />
+          <input type="color" class="pf-colour-swatch" id="cp-2" value="#efb4b2" oninput="syncHex(2)" />
           <input type="text" class="pf-colour-hex" id="ch-2" placeholder="#efb4b2" oninput="syncPicker(2)" maxlength="7" />
         </div>
       </div>
 
       <div class="pf-colours-panel" id="panel-idea">
         <div class="pf-colour-row">
-          <span class="pf-colour-label">My colour</span>
-          <input type="color" class="pf-colour-preview" id="cp-single" value="#5b395f" oninput="syncHexSingle()" />
-          <input type="text" class="pf-colour-hex" id="ch-single" placeholder="Pick or type a hex code" oninput="syncPickerSingle()" maxlength="7" />
+          <span class="pf-colour-label">Colour 1</span>
+          <input type="text" class="pf-colour-hex" id="ci-0" placeholder="e.g. #5b395f" maxlength="7" />
+        </div>
+        <div class="pf-colour-row">
+          <span class="pf-colour-label">Colour 2</span>
+          <input type="text" class="pf-colour-hex" id="ci-1" placeholder="e.g. #f6e4dc" maxlength="7" />
+        </div>
+        <div class="pf-colour-row">
+          <span class="pf-colour-label">Colour 3</span>
+          <input type="text" class="pf-colour-hex" id="ci-2" placeholder="e.g. #efb4b2" maxlength="7" />
         </div>
       </div>
 
@@ -741,24 +323,22 @@
       </div>
 
       <div class="pf-nav">
-        <button class="pf-btn-back" onclick="prevStep(6)">Back</button>
-        <button class="pf-btn-next" onclick="nextStep(6)">Next</button>
+        <button class="pf-btn-back" onclick="prevStep(7)">Back</button>
+        <button class="pf-btn-next" onclick="nextStep(7)">Next</button>
       </div>
     </div>
 
-    <!-- STEP 7: COMPETITORS -->
-    <div class="pf-step" id="step-7">
-      <p class="pf-step-label">Step 7 of 7</p>
+    <!-- STEP 8: COMPETITORS -->
+    <div class="pf-step" id="step-8">
+      <p class="pf-step-label">Step 8 of 8</p>
       <h2 class="pf-step-heading">Who are your competitors? <span class="pf-optional-tag">optional</span></h2>
       <p class="pf-step-sub">Add up to 3 competitor websites. We'll use them for inspiration and check if there's anything worth adding to your homepage.</p>
-      <div class="pf-tip">
-        We'll visit your competitors' websites, see what sections and ideas they're using, and pull the best bits into your homepage framework. You'll also get a short checklist of things worth noting from their sites.
-      </div>
+      <div class="pf-tip">We'll visit your competitors' websites, see what sections and ideas they're using, and pull the best bits into your homepage framework. You'll also get a short checklist of things worth noting from their sites.</div>
       <input class="pf-input" type="url" id="comp-0" placeholder="https://competitor1.com" />
       <input class="pf-input" type="url" id="comp-1" placeholder="https://competitor2.com" />
       <input class="pf-input" type="url" id="comp-2" placeholder="https://competitor3.com" />
       <div class="pf-nav">
-        <button class="pf-btn-back" onclick="prevStep(7)">Back</button>
+        <button class="pf-btn-back" onclick="prevStep(8)">Back</button>
         <button class="pf-btn-generate" onclick="generate()">&#10024; Generate my homepage</button>
       </div>
     </div>
@@ -775,9 +355,8 @@
   <!-- RESULT -->
   <div class="pf-result" id="pf-result">
     <div class="pf-result-card">
-      <img src="https://static1.squarespace.com/static/63e2e42b49b21e5c93a9ae87/t/63e2f04c0e78cd3e6c57042b/1675817037095/Pink+Fig+Instagram+Intagram.png" class="pf-result-logo" alt="Pink Fig Creative" onerror="this.style.display='none'" />
       <h2>Your homepage framework is ready!</h2>
-      <p>Download it, preview it, or copy the code. Open it in your browser to see the full design. Remember — this is your starting point, not a finished website. Make the copy yours.</p>
+      <p>Download it, preview it, or copy the code. Open it in your browser to see the full design. Remember, this is your starting point, not a finished website. Make the copy yours.</p>
       <div class="pf-result-buttons">
         <button class="pf-result-btn" onclick="downloadHTML()">
           <span class="btn-icon">&#11015;</span>
@@ -819,11 +398,10 @@
     <p>Built with the Pink Fig Creative homepage framework <a href="https://www.pinkfigcreative.com.au/secrets-to-a-homepage-that-converts" target="_blank">Secrets to a homepage that converts</a> + competitors analysis.<br>
     Ready to build it? DIY with the <a href="https://www.pinkfigcreative.com.au/website-launch-roadmap" target="_blank">Website Launch Roadmap</a></p>
   </div>
-
 </div>
 
 <script>
-  const TOTAL_STEPS = 8;
+  const TOTAL_STEPS = 9;
   let currentStep = 0;
   let serviceCount = 1;
   let generatedHTML = '';
@@ -833,11 +411,10 @@
     const el = document.getElementById('pf-progress');
     if (!el) return;
     el.innerHTML = '';
-    const steps = 7;
-    const adjusted = currentStep - 1;
-    for (let i = 0; i < steps; i++) {
+    const adj = currentStep - 1;
+    for (let i = 0; i < 8; i++) {
       const d = document.createElement('div');
-      d.className = 'pf-dot' + (i === adjusted ? ' active' : i < adjusted ? ' done' : '');
+      d.className = 'pf-dot' + (i === adj ? ' active' : i < adj ? ' done' : '');
       el.appendChild(d);
     }
   }
@@ -859,17 +436,14 @@
   }
 
   function nextStep(from) {
-    const validations = {
-      1: () => getValue('q-name'),
-      2: () => getValue('q-what'),
-      3: () => getValue('q-who'),
-      4: () => getValue('q-location'),
-      5: () => getValue('s0-name'),
-    };
-    if (validations[from] && !validations[from]()) {
-      const inputs = document.querySelectorAll('#step-' + from + ' input[type="text"], #step-' + from + ' textarea');
-      inputs.forEach(i => { i.style.borderColor = '#efb4b2'; setTimeout(() => { i.style.borderColor = ''; }, 1500); });
-      return;
+    const required = { 1: 'q-name', 2: 'q-what', 3: 'q-who', 4: 'q-location' };
+    if (required[from]) {
+      const el = document.getElementById(required[from]);
+      if (!el.value.trim()) {
+        el.style.borderColor = '#efb4b2';
+        setTimeout(() => { el.style.borderColor = ''; }, 1500);
+        return;
+      }
     }
     showStep(from + 1);
   }
@@ -914,22 +488,10 @@
     });
   }
 
-  function syncHex(idx) {
-    document.getElementById('ch-' + idx).value = document.getElementById('cp-' + idx).value;
-  }
-
+  function syncHex(idx) { document.getElementById('ch-' + idx).value = document.getElementById('cp-' + idx).value; }
   function syncPicker(idx) {
     const val = document.getElementById('ch-' + idx).value.trim();
     if (/^#[0-9a-fA-F]{6}$/.test(val)) document.getElementById('cp-' + idx).value = val;
-  }
-
-  function syncHexSingle() {
-    document.getElementById('ch-single').value = document.getElementById('cp-single').value;
-  }
-
-  function syncPickerSingle() {
-    const val = document.getElementById('ch-single').value.trim();
-    if (/^#[0-9a-fA-F]{6}$/.test(val)) document.getElementById('cp-single').value = val;
   }
 
   function getColours() {
@@ -941,14 +503,22 @@
       ].filter(c => c && /^#[0-9a-fA-F]{6}$/.test(c));
     }
     if (colourMode === 'idea') {
-      const c = getValue('ch-single') || document.getElementById('cp-single').value;
-      return c ? [c] : [];
+      return [getValue('ci-0'), getValue('ci-1'), getValue('ci-2')]
+        .filter(c => c && /^#[0-9a-fA-F]{6}$/.test(c));
     }
     return [];
   }
 
   function getCompetitors() {
     return [getValue('comp-0'), getValue('comp-1'), getValue('comp-2')].filter(Boolean);
+  }
+
+  function countChars(el, counterId, max) {
+    const len = el.value.length;
+    const counter = document.getElementById(counterId);
+    counter.textContent = len + ' / ' + max;
+    counter.classList.toggle('warn', len > max * 0.9);
+    if (len > max) el.value = el.value.substring(0, max);
   }
 
   const statusMessages = [
@@ -967,10 +537,7 @@
     let i = 0;
     const el = document.getElementById('loading-status');
     el.textContent = statusMessages[0];
-    statusInterval = setInterval(() => {
-      i = (i + 1) % statusMessages.length;
-      el.textContent = statusMessages[i];
-    }, 3500);
+    statusInterval = setInterval(() => { i = (i + 1) % statusMessages.length; el.textContent = statusMessages[i]; }, 3500);
   }
 
   function stopStatusCycle() { clearInterval(statusInterval); }
@@ -980,6 +547,7 @@
     const what = getValue('q-what');
     const who = getValue('q-who');
     const location = getValue('q-location');
+    const about = getValue('q-about');
     const services = getServices();
     const colours = getColours();
     const competitors = getCompetitors();
@@ -1005,7 +573,7 @@
           extraInsights = compData.insights || '';
           checklist = compData.checklist || [];
         }
-      } catch (e) { /* fail silently */ }
+      } catch (e) {}
     }
 
     stopStatusCycle();
@@ -1013,13 +581,13 @@
 
     const colourInstruction = colours.length
       ? `BRAND COLOURS: primary ${colours[0]}${colours[1] ? ', secondary ' + colours[1] : ''}${colours[2] ? ', accent ' + colours[2] : ''}. Use these on headings, buttons, section backgrounds, and accents.`
-      : 'COLOURS: Use a clean neutral palette — white background, soft warm accents, dark professional text.';
+      : 'COLOURS: Use a clean neutral palette, white background, soft warm accents, dark professional text.';
 
     try {
       const genRes = await fetch('/api/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, what, who, location, services, extraSections, extraInsights, colourInstruction })
+        body: JSON.stringify({ name, what, who, location, about, services, extraSections, extraInsights, colourInstruction })
       });
 
       if (!genRes.ok) {
@@ -1028,7 +596,6 @@
       }
 
       const genData = await genRes.json();
-
       if (genData.error) throw new Error(genData.error);
 
       generatedHTML = genData.html;
@@ -1070,7 +637,7 @@
       document.getElementById('pf-loading').classList.remove('visible');
       document.getElementById('pf-steps-container').style.display = 'block';
       document.getElementById('pf-result').classList.add('visible');
-      showStep(7);
+      showStep(8);
       const errEl = document.getElementById('pf-error');
       errEl.textContent = 'Something went wrong: ' + err.message + '. Please try again.';
       errEl.classList.add('visible');
@@ -1118,10 +685,11 @@
         </div>
       </div>`;
     document.getElementById('add-service-btn').style.display = 'block';
-    ['q-name','q-what','q-who','q-location','comp-0','comp-1','comp-2'].forEach(id => {
+    ['q-name','q-what','q-who','q-location','q-about','comp-0','comp-1','comp-2'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.value = '';
     });
+    document.getElementById('about-counter').textContent = '0 / 600';
     showStep(0);
   }
 </script>
