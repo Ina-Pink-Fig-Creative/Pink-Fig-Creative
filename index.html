@@ -994,7 +994,7 @@
 
     if (competitors.length) {
       try {
-        const compRes = await fetch('/analyse-competitors', {
+        const compRes = await fetch('/api/analyse-competitors', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ competitors })
@@ -1016,7 +1016,7 @@
       : 'COLOURS: Use a clean neutral palette — white background, soft warm accents, dark professional text.';
 
     try {
-      const genRes = await fetch('/generate', {
+      const genRes = await fetch('/api/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, what, who, location, services, extraSections, extraInsights, colourInstruction })
