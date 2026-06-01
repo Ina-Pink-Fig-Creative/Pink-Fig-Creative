@@ -55,7 +55,7 @@
   .pf-step-sub { font-size: 14px; color: var(--pf-muted); margin-bottom: 20px; line-height: 1.5; }
 
   .pf-welcome { background: var(--pf-blush); border-radius: 14px; padding: 28px 24px; margin-bottom: 8px; }
-  .pf-welcome-title { font-size: 28px; color: var(--pf-plum); font-weight: 700; margin-bottom: 4px; line-height: 1.2; }
+  .pf-welcome-title { font-size: 38px; color: var(--pf-plum); font-weight: 700; margin-bottom: 4px; line-height: 1.2; }
   .pf-welcome-sub { font-size: 14px; color: var(--pf-plum); font-weight: 500; margin-bottom: 18px; }
   .pf-welcome p { font-size: 14px; color: var(--pf-plum); line-height: 1.8; margin-bottom: 12px; }
   .pf-welcome p:last-of-type { margin-bottom: 0; }
@@ -113,6 +113,7 @@
 
   .pf-result { display: none; }
   .pf-result.visible { display: block; }
+  #pf-steps-container.hidden { display: none; }
 
   .pf-result-card { background: var(--pf-blush); border-radius: 16px; padding: 40px 32px; text-align: center; margin-bottom: 24px; }
   .pf-result-card h2 { font-size: 22px; color: var(--pf-coral); font-weight: 600; margin-bottom: 10px; }
@@ -331,8 +332,8 @@
     <!-- STEP 8: COMPETITORS -->
     <div class="pf-step" id="step-8">
       <p class="pf-step-label">Step 8 of 8</p>
-      <h2 class="pf-step-heading">Who are your competitors? <span class="pf-optional-tag">optional</span></h2>
-      <p class="pf-step-sub">Add up to 3 competitor websites. We'll use them for inspiration and check if there's anything worth adding to your homepage.</p>
+      <h2 class="pf-step-heading">Name three competitors.</h2>
+      <p class="pf-step-sub">No need to be in the same city. This is mandatory.</p>
       <div class="pf-tip">We'll visit your competitors' websites, see what sections and ideas they're using, and pull the best bits into your homepage framework. You'll also get a short checklist of things worth noting from their sites.</div>
       <input class="pf-input" type="url" id="comp-0" placeholder="https://competitor1.com" />
       <input class="pf-input" type="url" id="comp-1" placeholder="https://competitor2.com" />
@@ -552,7 +553,7 @@
     const colours = getColours();
     const competitors = getCompetitors();
 
-    document.getElementById('pf-steps-container').style.display = 'none';
+    document.getElementById('pf-steps-container').classList.add('hidden');
     document.getElementById('pf-loading').classList.add('visible');
     document.getElementById('pf-result').classList.remove('visible');
     document.getElementById('pf-error').classList.remove('visible');
@@ -635,8 +636,8 @@
 
     } catch (err) {
       document.getElementById('pf-loading').classList.remove('visible');
-      document.getElementById('pf-steps-container').style.display = 'block';
-      document.getElementById('pf-result').classList.add('visible');
+      document.getElementById('pf-steps-container').classList.remove('hidden');
+      document.getElementById('pf-result').classList.remove('visible');
       showStep(8);
       const errEl = document.getElementById('pf-error');
       errEl.textContent = 'Something went wrong: ' + err.message + '. Please try again.';
@@ -672,7 +673,7 @@
     document.getElementById('pf-loading').classList.remove('visible');
     document.getElementById('pf-error').classList.remove('visible');
     document.getElementById('pf-competitor-notes').style.display = 'none';
-    document.getElementById('pf-steps-container').style.display = 'block';
+    document.getElementById('pf-steps-container').classList.remove('hidden');
     document.getElementById('services-container').innerHTML = `
       <div class="pf-service-row">
         <p class="pf-row-label">Service 1</p>
