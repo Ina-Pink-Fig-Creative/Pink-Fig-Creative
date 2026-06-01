@@ -55,7 +55,7 @@
   .pf-step-sub { font-size: 14px; color: var(--pf-muted); margin-bottom: 20px; line-height: 1.5; }
 
   .pf-welcome { background: var(--pf-blush); border-radius: 14px; padding: 28px 24px; margin-bottom: 8px; }
-  .pf-welcome-title { font-size: 38px; color: var(--pf-plum); font-weight: 700; margin-bottom: 4px; line-height: 1.2; }
+  .pf-welcome-title { font-size: 48px; color: var(--pf-plum); font-weight: 700; margin-bottom: 4px; line-height: 1.1; }
   .pf-welcome-sub { font-size: 14px; color: var(--pf-plum); font-weight: 500; margin-bottom: 18px; }
   .pf-welcome p { font-size: 14px; color: var(--pf-plum); line-height: 1.8; margin-bottom: 12px; }
   .pf-welcome p:last-of-type { margin-bottom: 0; }
@@ -86,6 +86,7 @@
   .pf-colours-panel.visible { display: block; }
 
   .pf-colour-row { display: grid; grid-template-columns: 62px 40px 160px; gap: 10px; align-items: center; margin-bottom: 10px; }
+  .pf-colour-row.idea-row { grid-template-columns: 62px 1fr; }
   .pf-colour-swatch { width: 40px; height: 40px; border-radius: 8px; border: 1.5px solid var(--pf-blush-dark); padding: 2px; cursor: pointer; background: none; }
   .pf-colour-hex { background: var(--pf-white); border: 1.5px solid var(--pf-blush-dark); border-radius: 10px; padding: 10px 14px; font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--pf-text); outline: none; transition: border-color 0.2s; width: 100%; }
   .pf-colour-hex:focus { border-color: var(--pf-plum); }
@@ -120,11 +121,10 @@
   .pf-result-card p { font-size: 14px; color: var(--pf-plum); line-height: 1.7; margin-bottom: 32px; }
 
   .pf-result-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .pf-result-btn { background: var(--pf-plum); border: none; border-radius: 10px; padding: 16px 20px; font-family: 'Montserrat', sans-serif; cursor: pointer; transition: background 0.2s; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-  .pf-result-btn:hover { background: var(--pf-plum-light); }
-  .pf-result-btn.secondary { background: var(--pf-white); border: 1.5px solid var(--pf-blush-dark); }
-  .pf-result-btn.secondary:hover { border-color: var(--pf-plum); background: var(--pf-white); }
-  .btn-icon { font-size: 22px; }
+  .pf-result-btn { background: var(--pf-plum); border: none; border-radius: 10px; border-top-left-radius: 0; padding: 16px 20px; font-family: 'Montserrat', sans-serif; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .pf-result-btn.secondary { background: var(--pf-white); border: 1.5px solid var(--pf-blush-dark); border-top-left-radius: 0; }
+  .btn-icon { font-size: 22px; color: var(--pf-white); }
+  .pf-result-btn.secondary .btn-icon { color: var(--pf-plum); }
   .btn-label { font-size: 13px; font-weight: 500; color: var(--pf-white); }
   .pf-result-btn.secondary .btn-label { color: var(--pf-plum); }
   .btn-sub { font-size: 11px; color: var(--pf-white); opacity: 0.75; }
@@ -183,6 +183,7 @@
         <p>With over 7 years designing Squarespace websites for service-based businesses, I know the hardest part isn't the design. It's knowing what to say and where to put it on the website.</p>
         <p>This framework gives you exactly that. It's not a live website. It's a complete homepage structure with your copy, your services, and your voice built in seconds, ready to guide your build and use it as inspiration. Make the copy suggested yours, get in, make changes to it.</p>
         <p><strong>Get your homepage framework. Start building with confidence.</strong></p>
+        <p>Enjoy the ride! Ina</p>
       </div>
       <div class="pf-nav">
         <button class="pf-btn-next" onclick="nextStep(0)">Let's get started</button>
@@ -206,7 +207,7 @@
       <p class="pf-step-label">Step 2 of 8</p>
       <h2 class="pf-step-heading">What services do you offer?</h2>
       <p class="pf-step-sub">In plain terms. What service do you provide and what outcome does it create for your clients?</p>
-      <textarea class="pf-input pf-textarea" id="q-what" placeholder="e.g. I help busy women build confidence through 1:1 coaching and group programs"></textarea>
+      <textarea class="pf-input pf-textarea" id="q-what" placeholder="e.g. I help busy women build confidence through 1:1 coaching and group programs" style="min-height: 160px;"></textarea>
       <div class="pf-nav">
         <button class="pf-btn-back" onclick="prevStep(2)">Back</button>
         <button class="pf-btn-next" onclick="nextStep(2)">Next</button>
@@ -218,7 +219,7 @@
       <p class="pf-step-label">Step 3 of 8</p>
       <h2 class="pf-step-heading">Who do you work with?</h2>
       <p class="pf-step-sub">Describe your ideal client. The more specific, the better your copy will be.</p>
-      <textarea class="pf-input pf-textarea" id="q-who" placeholder="e.g. Female entrepreneurs in their 30s and 40s who feel stuck and overwhelmed in their business"></textarea>
+      <textarea class="pf-input pf-textarea" id="q-who" placeholder="e.g. Female entrepreneurs in their 30s and 40s who feel stuck and overwhelmed in their business" style="min-height: 160px;"></textarea>
       <div class="pf-nav">
         <button class="pf-btn-back" onclick="prevStep(3)">Back</button>
         <button class="pf-btn-next" onclick="nextStep(3)">Next</button>
@@ -307,15 +308,15 @@
       </div>
 
       <div class="pf-colours-panel" id="panel-idea">
-        <div class="pf-colour-row">
+        <div class="pf-colour-row idea-row">
           <span class="pf-colour-label">Colour 1</span>
           <input type="text" class="pf-colour-hex" id="ci-0" placeholder="e.g. #5b395f" maxlength="7" />
         </div>
-        <div class="pf-colour-row">
+        <div class="pf-colour-row idea-row">
           <span class="pf-colour-label">Colour 2</span>
           <input type="text" class="pf-colour-hex" id="ci-1" placeholder="e.g. #f6e4dc" maxlength="7" />
         </div>
-        <div class="pf-colour-row">
+        <div class="pf-colour-row idea-row">
           <span class="pf-colour-label">Colour 3</span>
           <input type="text" class="pf-colour-hex" id="ci-2" placeholder="e.g. #efb4b2" maxlength="7" />
         </div>
@@ -333,7 +334,7 @@
 
     <!-- STEP 8: COMPETITORS -->
     <div class="pf-step" id="step-8">
-      <p class="pf-step-label">Step 8 of 8</p>
+      <p class="pf-step-label">Step 8 of 9</p>
       <h2 class="pf-step-heading">Name three competitors.</h2>
       <p class="pf-step-sub">No need to be in the same city. This is mandatory.</p>
       <div class="pf-tip">We'll visit your competitors' websites, see what sections and ideas they're using, and pull the best bits into your homepage framework. You'll also get a short checklist of things worth noting from their sites.</div>
@@ -342,6 +343,19 @@
       <input class="pf-input" type="url" id="comp-2" placeholder="https://competitor3.com" />
       <div class="pf-nav">
         <button class="pf-btn-back" onclick="prevStep(8)">Back</button>
+        <button class="pf-btn-next" onclick="nextStep(8)">Next</button>
+      </div>
+    </div>
+
+    <!-- STEP 9: FREE WRITING -->
+    <div class="pf-step" id="step-9">
+      <p class="pf-step-label">Step 9 of 9</p>
+      <h2 class="pf-step-heading">Anything else I should know?</h2>
+      <p class="pf-step-sub">Free writing. Add anything that might help make your copy even better. Your tone of voice, things you love about your business, awards, a story, something your clients always say. No rules here.</p>
+      <textarea class="pf-input pf-textarea" id="q-extra" placeholder="e.g. My clients always say I make them feel at ease. I won a local business award in 2023. I want my website to feel warm but professional, not too corporate..." style="min-height: 140px;" oninput="countChars(this, 'extra-counter', 1000)"></textarea>
+      <p class="pf-char-counter" id="extra-counter">0 / 1000</p>
+      <div class="pf-nav">
+        <button class="pf-btn-back" onclick="prevStep(9)">Back</button>
         <button class="pf-btn-generate" onclick="generate()">&#10024; Generate my homepage</button>
       </div>
     </div>
@@ -350,7 +364,7 @@
   <!-- LOADING -->
   <div class="pf-loading" id="pf-loading">
     <div class="pf-spinner"></div>
-    <h3>Building your homepage...</h3>
+    <h3>Building your homepage framework...</h3>
     <p>This takes about 30 seconds.</p>
     <p class="pf-loading-status" id="loading-status">Getting started...</p>
   </div>
@@ -359,7 +373,7 @@
   <div class="pf-result" id="pf-result">
     <div class="pf-result-card">
       <h2>Your homepage framework is ready!</h2>
-      <p>Download it, preview it, or copy the code. Open it in your browser to see the full design. Remember, this is your starting point, not a finished website. Make the copy yours.</p>
+      <p>I highly recommend you download the code, otherwise you would lose all your hard work when you close this tab. You can also preview it, or copy the code. Open it in your browser to see the full design. Remember, this is your starting point, not a finished website. Make the copy yours. Take it to your designer or DIY it using <a href="https://pfc.pinkfigcreative.com.au/hg" target="_blank" style="color:var(--pf-plum);font-weight:600;">The Website Launch Roadmap</a></p>
       <div class="pf-result-buttons">
         <button class="pf-result-btn" onclick="downloadHTML()">
           <span class="btn-icon">&#11015;</span>
@@ -384,22 +398,23 @@
       </div>
     </div>
 
-    <div class="pf-sections-info">
-      <p>Sections included in your framework:</p>
-      <div class="pf-sections-used" id="sections-list"></div>
-    </div>
-
     <div class="pf-competitor-notes" id="pf-competitor-notes" style="display:none;">
       <h4>Things to check on your competitors</h4>
       <ul id="competitor-notes-list"></ul>
+    </div>
+
+    <div class="pf-sections-info">
+      <p>Sections included in your framework:</p>
+      <div class="pf-sections-used" id="sections-list"></div>
     </div>
 
     <div class="pf-error" id="pf-error"></div>
   </div>
 
   <div class="pf-footer-note">
-    <p>Built with the Pink Fig Creative homepage framework <a href="https://www.pinkfigcreative.com.au/secrets-to-a-homepage-that-converts" target="_blank">Secrets to a homepage that converts</a> + competitors analysis.<br>
-    Ready to build it? DIY with the <a href="https://www.pinkfigcreative.com.au/website-launch-roadmap" target="_blank">Website Launch Roadmap</a></p>
+    <p>Built with the Pink Fig Creative homepage framework.</p>
+    <p><a href="https://pfc.pinkfigcreative.com.au/hg" target="_blank">Secrets to a homepage that converts</a> + competitors analysis.</p>
+    <p>Ready to build it? DIY with the <a href="https://pfc.pinkfigcreative.com.au/hg" target="_blank">Website Launch Roadmap</a></p>
   </div>
 </div>
 
@@ -415,7 +430,7 @@
     if (!el) return;
     el.innerHTML = '';
     const adj = currentStep - 1;
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 9; i++) {
       const d = document.createElement('div');
       d.className = 'pf-dot' + (i === adj ? ' active' : i < adj ? ' done' : '');
       el.appendChild(d);
@@ -552,6 +567,7 @@
     const location = getValue('q-location');
     const serve = getValue('q-serve');
     const about = getValue('q-about');
+    const extra = getValue('q-extra');
     const services = getServices();
     const colours = getColours();
     const competitors = getCompetitors();
@@ -591,7 +607,7 @@
       const genRes = await fetch('/api/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, what, who, location, serve, about, services, extraSections, extraInsights, colourInstruction })
+        body: JSON.stringify({ name, what, who, location, serve, about, extra, services, extraSections, extraInsights, colourInstruction })
       });
 
       if (!genRes.ok) {
@@ -641,7 +657,7 @@
       document.getElementById('pf-loading').classList.remove('visible');
       document.getElementById('pf-steps-container').classList.remove('hidden');
       document.getElementById('pf-result').classList.remove('visible');
-      showStep(8);
+      showStep(9);
       const errEl = document.getElementById('pf-error');
       errEl.textContent = 'Something went wrong: ' + err.message + '. Please try again.';
       errEl.classList.add('visible');
@@ -689,11 +705,12 @@
         </div>
       </div>`;
     document.getElementById('add-service-btn').style.display = 'block';
-    ['q-name','q-what','q-who','q-location','q-serve','q-about','comp-0','comp-1','comp-2'].forEach(id => {
+    ['q-name','q-what','q-who','q-location','q-serve','q-about','q-extra','comp-0','comp-1','comp-2'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.value = '';
     });
     document.getElementById('about-counter').textContent = '0 / 600';
+    document.getElementById('extra-counter').textContent = '0 / 1000';
     showStep(0);
   }
 </script>
