@@ -1,10 +1,10 @@
 {
   "version": 2,
   "functions": {
-    "api/generate.js": {
+    "generate.js": {
       "maxDuration": 60
     },
-    "api/analyse-competitors.js": {
+    "analyse-competitors.js": {
       "maxDuration": 30
     }
   }
