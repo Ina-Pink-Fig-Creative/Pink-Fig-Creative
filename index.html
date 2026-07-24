@@ -17,101 +17,60 @@
     --pf-muted: #8a6d90;
     --pf-coral: #efb4b2;
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'Montserrat', sans-serif;
-    background: var(--pf-white);
-    color: var(--pf-text);
-    min-height: 100vh;
-  }
-
-  .pf-header {
-    background: var(--pf-blush);
-    padding: 18px 32px 16px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    border-bottom: 1px solid var(--pf-blush-dark);
-  }
-
+  body { font-family: 'Montserrat', sans-serif; background: var(--pf-white); color: var(--pf-text); min-height: 100vh; }
+  .pf-header { background: var(--pf-blush); padding: 18px 32px 16px; display: flex; align-items: center; gap: 14px; border-bottom: 1px solid var(--pf-blush-dark); }
   .pf-logo-img { width: 46px; height: 46px; object-fit: contain; }
-
   .pf-header-text h1 { font-size: 17px; color: var(--pf-plum); font-weight: 600; }
   .pf-header-text p { font-size: 12px; color: var(--pf-muted); margin-top: 1px; }
-
   .pf-body { max-width: 680px; margin: 0 auto; padding: 36px 28px 60px; }
-
   .pf-progress { display: flex; gap: 6px; margin-bottom: 28px; }
-  .pf-dot { flex: 1; height: 3px; background: var(--pf-blush-dark); border-radius: 2px; transition: background 0.3s; }
+  .pf-dot { flex: 1; height: 3px; background: var(--pf-blush-dark); border-radius: 2px; }
   .pf-dot.active { background: var(--pf-plum); }
   .pf-dot.done { background: var(--pf-plum-light); }
-
   .pf-step { display: none; }
   .pf-step.visible { display: block; }
-
   .pf-step-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--pf-muted); margin-bottom: 6px; font-weight: 500; }
   .pf-step-heading { font-size: 22px; color: var(--pf-coral); margin-bottom: 6px; line-height: 1.3; font-weight: 600; }
   .pf-step-sub { font-size: 14px; color: var(--pf-muted); margin-bottom: 20px; line-height: 1.5; }
-
   .pf-welcome { background: var(--pf-blush); border-radius: 14px; padding: 28px 24px; margin-bottom: 8px; }
   .pf-welcome-title { font-size: 48px; color: var(--pf-plum); font-weight: 700; margin-bottom: 4px; line-height: 1.1; }
   .pf-welcome-sub { font-size: 14px; color: var(--pf-plum); font-weight: 500; margin-bottom: 18px; }
   .pf-welcome p { font-size: 14px; color: var(--pf-plum); line-height: 1.8; margin-bottom: 12px; }
   .pf-welcome p:last-of-type { margin-bottom: 0; }
   .pf-welcome strong { font-weight: 600; }
-
-  .pf-input { width: 100%; background: var(--pf-white); border: 1.5px solid var(--pf-blush-dark); border-radius: 10px; padding: 13px 16px; font-family: 'Montserrat', sans-serif; font-size: 15px; color: var(--pf-text); outline: none; transition: border-color 0.2s; margin-bottom: 10px; display: block; }
+  .pf-input { width: 100%; background: var(--pf-white); border: 1.5px solid var(--pf-blush-dark); border-radius: 10px; padding: 13px 16px; font-family: 'Montserrat', sans-serif; font-size: 15px; color: var(--pf-text); outline: none; margin-bottom: 10px; display: block; }
   .pf-input:focus { border-color: var(--pf-plum); }
   .pf-textarea { resize: vertical; min-height: 80px; }
-
   .pf-char-counter { font-size: 11px; color: var(--pf-muted); text-align: right; margin-top: -8px; margin-bottom: 10px; }
   .pf-char-counter.warn { color: var(--pf-coral); }
-
   .pf-service-row { background: var(--pf-blush); border: 1.5px solid var(--pf-blush-dark); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; }
   .pf-row-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--pf-muted); margin-bottom: 8px; font-weight: 500; }
   .pf-service-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .pf-service-fields input, .pf-service-desc input { background: var(--pf-white); border: 1px solid var(--pf-blush-dark); border-radius: 8px; padding: 9px 12px; font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--pf-text); outline: none; width: 100%; transition: border-color 0.2s; }
-  .pf-service-fields input:focus, .pf-service-desc input:focus { border-color: var(--pf-plum); }
+  .pf-service-fields input, .pf-service-desc input { background: var(--pf-white); border: 1px solid var(--pf-blush-dark); border-radius: 8px; padding: 9px 12px; font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--pf-text); outline: none; width: 100%; }
   .pf-service-desc { margin-top: 8px; }
-
-  .pf-add-btn { background: transparent; border: 1.5px dashed var(--pf-plum-light); border-radius: 10px; padding: 10px 16px; font-family: 'Montserrat', sans-serif; font-size: 13px; color: var(--pf-plum-light); cursor: pointer; width: 100%; text-align: center; transition: all 0.2s; margin-bottom: 10px; }
-  .pf-add-btn:hover { background: rgba(91,57,95,0.06); border-color: var(--pf-plum); color: var(--pf-plum); }
-
+  .pf-add-btn { background: transparent; border: 1.5px dashed var(--pf-plum-light); border-radius: 10px; padding: 10px 16px; font-family: 'Montserrat', sans-serif; font-size: 13px; color: var(--pf-plum-light); cursor: pointer; width: 100%; text-align: center; margin-bottom: 10px; }
   .pf-colours-toggle { display: flex; gap: 10px; margin-bottom: 20px; }
-  .pf-toggle-btn { flex: 1; padding: 11px 10px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s; border: 1.5px solid var(--pf-blush-dark); background: var(--pf-white); color: var(--pf-muted); text-align: center; }
+  .pf-toggle-btn { flex: 1; padding: 11px 10px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; border: 1.5px solid var(--pf-blush-dark); background: var(--pf-white); color: var(--pf-muted); text-align: center; }
   .pf-toggle-btn.active { background: var(--pf-plum); color: var(--pf-white); border-color: var(--pf-plum); }
-
   .pf-colours-panel { display: none; }
   .pf-colours-panel.visible { display: block; }
-
-  .pf-colour-row { display: grid; grid-template-columns: 62px 40px 160px; gap: 10px; align-items: center; margin-bottom: 10px; }
+  .pf-colour-row { display: grid; grid-template-columns: 62px 40px 1fr; gap: 10px; align-items: center; margin-bottom: 10px; }
   .pf-colour-row.idea-row { grid-template-columns: 62px 1fr; }
   .pf-colour-swatch { width: 40px; height: 40px; border-radius: 8px; border: 1.5px solid var(--pf-blush-dark); padding: 2px; cursor: pointer; background: none; }
-  .pf-colour-hex { background: var(--pf-white); border: 1.5px solid var(--pf-blush-dark); border-radius: 10px; padding: 10px 14px; font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--pf-text); outline: none; transition: border-color 0.2s; width: 100%; }
+  .pf-colour-hex { background: var(--pf-white); border: 1.5px solid var(--pf-blush-dark); border-radius: 10px; padding: 10px 14px; font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--pf-text); outline: none; width: 100%; }
   .pf-colour-hex:focus { border-color: var(--pf-plum); }
   .pf-colour-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--pf-muted); font-weight: 500; white-space: nowrap; }
-
+  .pf-tip { background: rgba(239,180,178,0.15); border-left: 3px solid var(--pf-coral); border-radius: 0 8px 8px 0; padding: 10px 14px; font-size: 13px; color: var(--pf-plum); margin-bottom: 18px; line-height: 1.6; }
   .pf-tone-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
   .pf-tone-btn { padding: 14px 12px; border-radius: 10px; border-top-left-radius: 0; border: 1.5px solid var(--pf-blush-dark); background: var(--pf-white); font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 500; color: var(--pf-muted); cursor: pointer; text-align: left; }
   .pf-tone-btn .tone-name { display: block; font-weight: 600; color: var(--pf-plum); margin-bottom: 3px; font-size: 14px; }
   .pf-tone-btn .tone-desc { display: block; font-size: 11px; color: var(--pf-muted); line-height: 1.4; }
   .pf-tone-btn.active { border-color: var(--pf-plum); background: var(--pf-blush); }
-  .pf-tone-btn.active .tone-name { color: var(--pf-plum); }
-
-  .pf-tip { background: rgba(239,180,178,0.15); border-left: 3px solid var(--pf-coral); border-radius: 0 8px 8px 0; padding: 10px 14px; font-size: 13px; color: var(--pf-plum); margin-bottom: 18px; line-height: 1.6; }
-
-  .pf-optional-tag { font-size: 11px; background: rgba(239,180,178,0.2); color: var(--pf-coral); padding: 2px 7px; border-radius: 4px; margin-left: 6px; font-weight: 400; vertical-align: middle; }
-
   .pf-nav { display: flex; gap: 10px; margin-top: 24px; }
-  .pf-btn-back { background: transparent; border: 1.5px solid var(--pf-blush-dark); border-radius: 10px; padding: 12px 20px; font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--pf-muted); cursor: pointer; transition: all 0.2s; }
-  .pf-btn-back:hover { border-color: var(--pf-plum-light); color: var(--pf-plum); }
-  .pf-btn-next { flex: 1; background: var(--pf-plum); border: none; border-radius: 10px; padding: 13px 20px; font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 500; color: var(--pf-white); cursor: pointer; transition: background 0.2s; }
-  .pf-btn-next:hover { background: var(--pf-plum-light); }
-  .pf-btn-generate { flex: 1; background: var(--pf-plum); border: none; border-radius: 10px; padding: 14px 20px; font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 500; color: var(--pf-white); cursor: pointer; transition: background 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
-  .pf-btn-generate:hover { background: var(--pf-plum-light); }
-
+  .pf-btn-back { background: transparent; border: 1.5px solid var(--pf-blush-dark); border-radius: 10px; padding: 12px 20px; font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--pf-muted); cursor: pointer; }
+  .pf-btn-next { flex: 1; background: var(--pf-plum); border: none; border-radius: 10px; padding: 13px 20px; font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 500; color: var(--pf-white); cursor: pointer; }
+  .pf-btn-generate { flex: 1; background: var(--pf-plum); border: none; border-radius: 10px; padding: 14px 20px; font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 500; color: var(--pf-white); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
   .pf-loading { display: none; text-align: center; padding: 80px 20px; }
   .pf-loading.visible { display: block; }
   .pf-spinner { width: 48px; height: 48px; border: 3px solid var(--pf-blush-dark); border-top-color: var(--pf-plum); border-radius: 50%; animation: spin 0.9s linear infinite; margin: 0 auto 20px; }
@@ -119,15 +78,12 @@
   .pf-loading h3 { font-size: 18px; color: var(--pf-coral); margin-bottom: 6px; font-weight: 600; }
   .pf-loading p { font-size: 13px; color: var(--pf-muted); }
   .pf-loading-status { font-size: 12px; color: var(--pf-plum-light); margin-top: 14px; min-height: 20px; }
-
   .pf-result { display: none; }
   .pf-result.visible { display: block; }
   #pf-steps-container.hidden { display: none; }
-
   .pf-result-card { background: var(--pf-blush); border-radius: 16px; padding: 40px 32px; text-align: center; margin-bottom: 24px; }
   .pf-result-card h2 { font-size: 22px; color: var(--pf-coral); font-weight: 600; margin-bottom: 10px; }
   .pf-result-card p { font-size: 14px; color: var(--pf-plum); line-height: 1.7; margin-bottom: 32px; }
-
   .pf-result-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .pf-result-btn { background: var(--pf-plum); border: none; border-radius: 10px; border-top-left-radius: 0; padding: 16px 20px; font-family: 'Montserrat', sans-serif; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px; }
   .pf-result-btn.secondary { background: var(--pf-white); border: 1.5px solid var(--pf-blush-dark); border-top-left-radius: 0; }
@@ -137,28 +93,22 @@
   .pf-result-btn.secondary .btn-label { color: var(--pf-plum); }
   .btn-sub { font-size: 11px; color: var(--pf-white); opacity: 0.75; }
   .pf-result-btn.secondary .btn-sub { color: var(--pf-muted); opacity: 1; }
-
   .pf-sections-info { background: var(--pf-white); border: 1.5px solid var(--pf-blush-dark); border-radius: 12px; padding: 16px 18px; margin-bottom: 16px; }
   .pf-sections-info p { font-size: 12px; color: var(--pf-muted); font-weight: 500; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.06em; }
   .pf-sections-used { display: flex; flex-wrap: wrap; gap: 6px; }
   .pf-badge { background: var(--pf-plum); color: var(--pf-white); font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
   .pf-badge.extra { background: transparent; border: 1.5px solid var(--pf-coral); color: var(--pf-plum); }
-
   .pf-competitor-notes { background: var(--pf-white); border: 1.5px solid var(--pf-coral); border-radius: 12px; padding: 16px 18px; margin-bottom: 16px; }
   .pf-competitor-notes h4 { font-size: 12px; font-weight: 600; color: var(--pf-coral); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
   .pf-competitor-notes ul { list-style: none; padding: 0; }
   .pf-competitor-notes li { font-size: 13px; color: var(--pf-plum); padding: 7px 0; border-bottom: 1px solid var(--pf-blush-dark); line-height: 1.5; display: flex; gap: 10px; align-items: flex-start; }
   .pf-competitor-notes li:last-child { border-bottom: none; }
   .pf-note-dot { width: 6px; height: 6px; background: var(--pf-coral); border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
-
   .pf-error { background: #fef0f0; border: 1.5px solid #f5c6c6; border-radius: 10px; padding: 14px 16px; font-size: 13px; color: #c0392b; margin-top: 12px; line-height: 1.5; display: none; }
   .pf-error.visible { display: block; }
-
   .pf-footer-note { text-align: center; margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--pf-blush-dark); }
   .pf-footer-note p { font-size: 12px; color: var(--pf-muted); line-height: 2; }
   .pf-footer-note a { color: var(--pf-plum); text-decoration: none; font-weight: 600; }
-  .pf-footer-note a:hover { color: var(--pf-coral); }
-
   @media (max-width: 600px) {
     .pf-body { padding: 24px 18px 40px; }
     .pf-header { padding: 14px 18px; }
@@ -166,6 +116,7 @@
     .pf-service-fields { grid-template-columns: 1fr; }
     .pf-colours-toggle { flex-direction: column; }
     .pf-result-buttons { grid-template-columns: 1fr; }
+    .pf-tone-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -198,9 +149,9 @@
       </div>
     </div>
 
-    <!-- STEP 1: ABOUT YOUR BUSINESS -->
+    <!-- STEP 1: BASICS -->
     <div class="pf-step" id="step-1">
-      <p class="pf-step-label">Step 1 of 12</p>
+      <p class="pf-step-label">Step 1 of 11</p>
       <h2 class="pf-step-heading">Let's start with the basics.</h2>
       <p class="pf-step-sub">This information will appear throughout your homepage copy.</p>
       <input class="pf-input" type="text" id="q-firstname" placeholder="Your first name (e.g. Sarah)" />
@@ -214,7 +165,7 @@
 
     <!-- STEP 2: WHAT DO YOU DO -->
     <div class="pf-step" id="step-2">
-      <p class="pf-step-label">Step 2 of 12</p>
+      <p class="pf-step-label">Step 2 of 11</p>
       <h2 class="pf-step-heading">What services do you offer?</h2>
       <p class="pf-step-sub">In plain terms. What service do you provide and what outcome does it create for your clients?</p>
       <textarea class="pf-input pf-textarea" id="q-what" placeholder="e.g. I help busy women build confidence through 1:1 coaching and group programs" style="min-height: 160px;"></textarea>
@@ -226,7 +177,7 @@
 
     <!-- STEP 3: WHO -->
     <div class="pf-step" id="step-3">
-      <p class="pf-step-label">Step 3 of 12</p>
+      <p class="pf-step-label">Step 3 of 11</p>
       <h2 class="pf-step-heading">Who do you work with?</h2>
       <p class="pf-step-sub">Describe your ideal client. The more specific, the better your copy will be.</p>
       <textarea class="pf-input pf-textarea" id="q-who" placeholder="e.g. Female entrepreneurs in their 30s and 40s who feel stuck and overwhelmed in their business" style="min-height: 160px;"></textarea>
@@ -237,64 +188,64 @@
     </div>
 
     <!-- STEP 4: CTA -->
-    <div class="pf-step" id="step-11">
-      <p class="pf-step-label">Step 4 of 12</p>
+    <div class="pf-step" id="step-4">
+      <p class="pf-step-label">Step 4 of 11</p>
       <h2 class="pf-step-heading">What do you want visitors to do?</h2>
-      <p class="pf-step-sub">Choose the main action you want people to take on your homepage. This becomes your call to action button throughout the site.</p>
+      <p class="pf-step-sub">Choose the main action you want people to take. This becomes your call to action button throughout the site.</p>
       <div class="pf-tone-grid">
-        <button class="pf-tone-btn active" id="cta-book" onclick="selectCTA('Book a free call')">
+        <button class="pf-tone-btn active" id="cta-book" onclick="selectCTA('Book a free call', 'cta-book')">
           <span class="tone-name">Book a free call</span>
           <span class="tone-desc">Great for service businesses and coaches.</span>
         </button>
-        <button class="pf-tone-btn" id="cta-enquire" onclick="selectCTA('Send an enquiry')">
+        <button class="pf-tone-btn" id="cta-enquire" onclick="selectCTA('Send an enquiry', 'cta-enquire')">
           <span class="tone-name">Send an enquiry</span>
           <span class="tone-desc">Good for project-based work.</span>
         </button>
-        <button class="pf-tone-btn" id="cta-quote" onclick="selectCTA('Get a quote')">
+        <button class="pf-tone-btn" id="cta-quote" onclick="selectCTA('Get a quote', 'cta-quote')">
           <span class="tone-name">Get a quote</span>
           <span class="tone-desc">Works well for trades and consultants.</span>
         </button>
-        <button class="pf-tone-btn" id="cta-work" onclick="selectCTA('Work with me')">
+        <button class="pf-tone-btn" id="cta-work" onclick="selectCTA('Work with me', 'cta-work')">
           <span class="tone-name">Work with me</span>
           <span class="tone-desc">Personal and direct.</span>
         </button>
-        <button class="pf-tone-btn" id="cta-buy" onclick="selectCTA('Buy now')">
+        <button class="pf-tone-btn" id="cta-buy" onclick="selectCTA('Buy now', 'cta-buy')">
           <span class="tone-name">Buy now</span>
           <span class="tone-desc">For products or fixed-price services.</span>
         </button>
-        <button class="pf-tone-btn" id="cta-freebie" onclick="selectCTA('Download my freebie')">
+        <button class="pf-tone-btn" id="cta-freebie" onclick="selectCTA('Download my freebie', 'cta-freebie')">
           <span class="tone-name">Download my freebie</span>
           <span class="tone-desc">Great for list building.</span>
         </button>
       </div>
-      <p class="pf-step-sub" style="margin-top:14px; margin-bottom:8px;">Or write your own:</p>
-      <input class="pf-input" type="text" id="q-cta-custom" placeholder="e.g. Start your free trial" oninput="selectCTA(this.value)" />
+      <p class="pf-step-sub" style="margin-top:14px;margin-bottom:8px;">Or write your own:</p>
+      <input class="pf-input" type="text" id="q-cta-custom" placeholder="e.g. Start your free trial" oninput="selectCTA(this.value, null)" />
       <div class="pf-nav">
-        <button class="pf-btn-back" onclick="prevStep(6)">Back</button>
-        <button class="pf-btn-next" onclick="nextStep(6)">Next</button>
+        <button class="pf-btn-back" onclick="prevStep(4)">Back</button>
+        <button class="pf-btn-next" onclick="nextStep(4)">Next</button>
       </div>
     </div>
 
-    <!-- STEP 4: LOCATION -->
-    <div class="pf-step" id="step-11">
-      <p class="pf-step-label">Step 5 of 12</p>
+    <!-- STEP 5: LOCATION -->
+    <div class="pf-step" id="step-5">
+      <p class="pf-step-label">Step 5 of 11</p>
       <h2 class="pf-step-heading">Where are you based?</h2>
       <p class="pf-step-sub">City and country. This helps with local SEO and positioning.</p>
       <input class="pf-input" type="text" id="q-location" placeholder="e.g. Sydney, Australia" />
-      <label class="pf-step-sub" style="margin-bottom:8px; display:block;">Where do you serve your clients?</label>
+      <label class="pf-step-sub" style="margin-bottom:8px;display:block;">Where do you serve your clients?</label>
       <input class="pf-input" type="text" id="q-serve" placeholder="e.g. Online, Sydney based, or both" />
       <div class="pf-nav">
-        <button class="pf-btn-back" onclick="prevStep(6)">Back</button>
-        <button class="pf-btn-next" onclick="nextStep(6)">Next</button>
+        <button class="pf-btn-back" onclick="prevStep(5)">Back</button>
+        <button class="pf-btn-next" onclick="nextStep(5)">Next</button>
       </div>
     </div>
 
-    <!-- STEP 5: ABOUT YOU -->
-    <div class="pf-step" id="step-11">
-      <p class="pf-step-label">Step 6 of 12</p>
+    <!-- STEP 6: ABOUT YOU -->
+    <div class="pf-step" id="step-6">
+      <p class="pf-step-label">Step 6 of 11</p>
       <h2 class="pf-step-heading">Tell us a little about you.</h2>
       <p class="pf-step-sub">Up to 100 words. Share your background, why you started your business, and what makes you different. This goes into your about section.</p>
-      <textarea class="pf-input pf-textarea" id="q-about" placeholder="e.g. I'm a Sydney-based designer with 10 years of experience helping small businesses get online. I started my business because I believe every business deserves a beautiful website without the overwhelm..." style="min-height: 130px;" oninput="countChars(this, 'about-counter', 600)"></textarea>
+      <textarea class="pf-input pf-textarea" id="q-about" placeholder="e.g. I'm a Sydney-based designer with 10 years of experience..." style="min-height: 130px;" oninput="countChars(this, 'about-counter', 600)"></textarea>
       <p class="pf-char-counter" id="about-counter">0 / 600</p>
       <div class="pf-nav">
         <button class="pf-btn-back" onclick="prevStep(6)">Back</button>
@@ -302,9 +253,9 @@
       </div>
     </div>
 
-    <!-- STEP 6: SERVICES -->
-    <div class="pf-step" id="step-11">
-      <p class="pf-step-label">Step 7 of 12</p>
+    <!-- STEP 7: SERVICES -->
+    <div class="pf-step" id="step-7">
+      <p class="pf-step-label">Step 7 of 11</p>
       <h2 class="pf-step-heading">What services do you offer?</h2>
       <p class="pf-step-sub">Add up to 3. Include a name, price, and short description for each.</p>
       <div id="services-container">
@@ -321,23 +272,21 @@
       </div>
       <button class="pf-add-btn" id="add-service-btn" onclick="addService()">+ Add another service</button>
       <div class="pf-nav">
-        <button class="pf-btn-back" onclick="prevStep(6)">Back</button>
-        <button class="pf-btn-next" onclick="nextStep(6)">Next</button>
+        <button class="pf-btn-back" onclick="prevStep(7)">Back</button>
+        <button class="pf-btn-next" onclick="nextStep(7)">Next</button>
       </div>
     </div>
 
-    <!-- STEP 7: BRAND COLOURS -->
-    <div class="pf-step" id="step-11">
-      <p class="pf-step-label">Step 8 of 12</p>
+    <!-- STEP 8: COLOURS -->
+    <div class="pf-step" id="step-8">
+      <p class="pf-step-label">Step 8 of 11</p>
       <h2 class="pf-step-heading">Let's talk colours.</h2>
-      <p class="pf-step-sub">If you already have brand colours, pop in up to 3 hex codes below. These will be applied directly to your homepage framework. Not there yet? That's completely fine. Just tell us one colour you're drawn to and we'll take it from there.</p>
-
+      <p class="pf-step-sub">If you already have brand colours, pop in up to 3 hex codes below. Not there yet? That's completely fine. Just tell us one colour you're drawn to and we'll take it from there.</p>
       <div class="pf-colours-toggle">
         <button class="pf-toggle-btn active" id="toggle-brand" onclick="toggleColours('brand')">I have brand colours</button>
         <button class="pf-toggle-btn" id="toggle-idea" onclick="toggleColours('idea')">I have a colour in mind</button>
         <button class="pf-toggle-btn" id="toggle-none" onclick="toggleColours('none')">Not sure yet</button>
       </div>
-
       <div class="pf-colours-panel visible" id="panel-brand">
         <div class="pf-colour-row">
           <span class="pf-colour-label">Colour 1</span>
@@ -355,7 +304,6 @@
           <input type="text" class="pf-colour-hex" id="ch-2" placeholder="#efb4b2" oninput="syncPicker(2)" maxlength="40" />
         </div>
       </div>
-
       <div class="pf-colours-panel" id="panel-idea">
         <div class="pf-colour-row idea-row">
           <span class="pf-colour-label">Colour 1</span>
@@ -370,20 +318,18 @@
           <input type="text" class="pf-colour-hex" id="ci-2" placeholder="e.g. #efb4b2" maxlength="40" />
         </div>
       </div>
-
       <div class="pf-colours-panel" id="panel-none">
         <div class="pf-tip">No problem. We'll use a clean neutral palette that works for any service business. You can always update colours once you're in Squarespace.</div>
       </div>
-
       <div class="pf-nav">
-        <button class="pf-btn-back" onclick="prevStep(10)">Back</button>
-        <button class="pf-btn-next" onclick="nextStep(10)">Next</button>
+        <button class="pf-btn-back" onclick="prevStep(8)">Back</button>
+        <button class="pf-btn-next" onclick="nextStep(8)">Next</button>
       </div>
     </div>
 
-    <!-- STEP 8: COMPETITORS -->
-    <div class="pf-step" id="step-11">
-      <p class="pf-step-label">Step 8 of 10</p>
+    <!-- STEP 9: COMPETITORS -->
+    <div class="pf-step" id="step-9">
+      <p class="pf-step-label">Step 9 of 11</p>
       <h2 class="pf-step-heading">Name three competitors.</h2>
       <p class="pf-step-sub">No need to be in the same city. This is mandatory.</p>
       <div class="pf-tip">We'll visit your competitors' websites, see what sections and ideas they're using, and pull the best bits into your homepage framework. You'll also get a short checklist of things worth noting from their sites.</div>
@@ -391,38 +337,38 @@
       <input class="pf-input" type="url" id="comp-1" placeholder="https://competitor2.com" />
       <input class="pf-input" type="url" id="comp-2" placeholder="https://competitor3.com" />
       <div class="pf-nav">
-        <button class="pf-btn-back" onclick="prevStep(10)">Back</button>
-        <button class="pf-btn-next" onclick="nextStep(10)">Next</button>
+        <button class="pf-btn-back" onclick="prevStep(9)">Back</button>
+        <button class="pf-btn-next" onclick="nextStep(9)">Next</button>
       </div>
     </div>
 
-    <!-- STEP 9: TONE OF VOICE -->
-    <div class="pf-step" id="step-11">
-      <p class="pf-step-label">Step 10 of 12</p>
+    <!-- STEP 10: TONE OF VOICE -->
+    <div class="pf-step" id="step-10">
+      <p class="pf-step-label">Step 10 of 11</p>
       <h2 class="pf-step-heading">What's your tone of voice?</h2>
-      <p class="pf-step-sub">Choose the tone that best describes how you want to sound to your clients. This shapes the language used throughout your homepage.</p>
+      <p class="pf-step-sub">Choose the tone that best describes how you want to sound to your clients.</p>
       <div class="pf-tone-grid">
-        <button class="pf-tone-btn active" id="tone-friendly" onclick="selectTone('friendly')">
+        <button class="pf-tone-btn active" id="tone-friendly" onclick="selectTone('friendly', 'tone-friendly')">
           <span class="tone-name">Friendly and warm</span>
           <span class="tone-desc">Approachable, conversational, like talking to a trusted friend.</span>
         </button>
-        <button class="pf-tone-btn" id="tone-professional" onclick="selectTone('professional')">
+        <button class="pf-tone-btn" id="tone-professional" onclick="selectTone('professional', 'tone-professional')">
           <span class="tone-name">Professional and polished</span>
           <span class="tone-desc">Confident, credible, corporate without being cold.</span>
         </button>
-        <button class="pf-tone-btn" id="tone-bold" onclick="selectTone('bold')">
+        <button class="pf-tone-btn" id="tone-bold" onclick="selectTone('bold', 'tone-bold')">
           <span class="tone-name">Bold and direct</span>
           <span class="tone-desc">No fluff, straight to the point, strong and confident.</span>
         </button>
-        <button class="pf-tone-btn" id="tone-calm" onclick="selectTone('calm')">
+        <button class="pf-tone-btn" id="tone-calm" onclick="selectTone('calm', 'tone-calm')">
           <span class="tone-name">Calm and reassuring</span>
           <span class="tone-desc">Gentle, supportive, puts clients at ease immediately.</span>
         </button>
-        <button class="pf-tone-btn" id="tone-playful" onclick="selectTone('playful')">
+        <button class="pf-tone-btn" id="tone-playful" onclick="selectTone('playful', 'tone-playful')">
           <span class="tone-name">Playful and creative</span>
           <span class="tone-desc">Fun, energetic, a little bit cheeky and full of personality.</span>
         </button>
-        <button class="pf-tone-btn" id="tone-inspiring" onclick="selectTone('inspiring')">
+        <button class="pf-tone-btn" id="tone-inspiring" onclick="selectTone('inspiring', 'tone-inspiring')">
           <span class="tone-name">Inspiring and motivational</span>
           <span class="tone-desc">Uplifting, empowering, makes clients feel they can achieve anything.</span>
         </button>
@@ -433,12 +379,12 @@
       </div>
     </div>
 
-    <!-- STEP 10: FREE WRITING -->
+    <!-- STEP 11: FREE WRITING -->
     <div class="pf-step" id="step-11">
-      <p class="pf-step-label">Step 11 of 12</p>
+      <p class="pf-step-label">Step 11 of 11</p>
       <h2 class="pf-step-heading">Anything else I should know?</h2>
-      <p class="pf-step-sub">Free writing. Add anything that might help make your copy even better. Your tone of voice, things you love about your business, awards, a story, something your clients always say. No rules here.</p>
-      <textarea class="pf-input pf-textarea" id="q-extra" placeholder="e.g. My clients always say I make them feel at ease. I won a local business award in 2023. I want my website to feel warm but professional, not too corporate..." style="min-height: 140px;" oninput="countChars(this, 'extra-counter', 1000)"></textarea>
+      <p class="pf-step-sub">Free writing. Add anything that might help make your copy even better. Awards, a story, something your clients always say. No rules here.</p>
+      <textarea class="pf-input pf-textarea" id="q-extra" placeholder="e.g. My clients always say I make them feel at ease. I won a local business award in 2023..." style="min-height: 140px;" oninput="countChars(this, 'extra-counter', 1000)"></textarea>
       <p class="pf-char-counter" id="extra-counter">0 / 1000</p>
       <div class="pf-nav">
         <button class="pf-btn-back" onclick="prevStep(11)">Back</button>
@@ -462,12 +408,12 @@
       <p>I highly recommend you download the code, otherwise you would lose all your hard work when you close this tab. You can also preview it, or copy the code. Open it in your browser to see the full design. Remember, this is your starting point, not a finished website. Make the copy yours. Take it to your designer or DIY it using <a href="https://pfc.pinkfigcreative.com.au/hg" target="_blank" style="color:var(--pf-plum);font-weight:600;">The Website Launch Roadmap</a></p>
       <div class="pf-result-buttons">
         <button class="pf-result-btn" onclick="downloadHTML()">
-          <span class="btn-icon">&#11015;</span>
+          <span class="btn-icon" style="color:#fff;">&#11015;</span>
           <span class="btn-label">Download HTML</span>
           <span class="btn-sub">Save to your computer</span>
         </button>
         <button class="pf-result-btn" onclick="openInNewTab()">
-          <span class="btn-icon">&#128065;</span>
+          <span class="btn-icon" style="color:#fff;">&#128065;</span>
           <span class="btn-label">Preview in new tab</span>
           <span class="btn-sub">See the full design</span>
         </button>
@@ -510,7 +456,6 @@
 </div>
 
 <script>
-  const TOTAL_STEPS = 12;
   let currentStep = 0;
   let serviceCount = 1;
   let generatedHTML = '';
@@ -518,29 +463,12 @@
   let selectedTone = 'friendly';
   let selectedCTA = 'Book a free call';
 
-  function selectCTA(cta) {
-    selectedCTA = cta;
-    ['book','enquire','quote','work','buy','freebie'].forEach(id => {
-      const el = document.getElementById('cta-' + id);
-      if (el) el.classList.remove('active');
-    });
-    const presets = {
-      'Book a free call': 'cta-book',
-      'Send an enquiry': 'cta-enquire',
-      'Get a quote': 'cta-quote',
-      'Work with me': 'cta-work',
-      'Buy now': 'cta-buy',
-      'Download my freebie': 'cta-freebie'
-    };
-    if (presets[cta]) document.getElementById(presets[cta]).classList.add('active');
-  }
-
   function buildProgress() {
     const el = document.getElementById('pf-progress');
     if (!el) return;
     el.innerHTML = '';
     const adj = currentStep - 1;
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 11; i++) {
       const d = document.createElement('div');
       d.className = 'pf-dot' + (i === adj ? ' active' : i < adj ? ' done' : '');
       el.appendChild(d);
@@ -564,29 +492,40 @@
   }
 
   function nextStep(from) {
-    const required = { 2: 'q-what', 3: 'q-who', 5: 'q-location' };
     if (from === 1) {
       const fn = document.getElementById('q-firstname');
       const nm = document.getElementById('q-name');
-      if (!fn.value.trim() || !nm.value.trim()) {
-        if (!fn.value.trim()) { fn.style.borderColor = '#efb4b2'; setTimeout(() => { fn.style.borderColor = ''; }, 1500); }
-        if (!nm.value.trim()) { nm.style.borderColor = '#efb4b2'; setTimeout(() => { nm.style.borderColor = ''; }, 1500); }
-        return;
-      }
-      showStep(2); return;
+      if (!fn.value.trim()) { fn.style.borderColor = '#efb4b2'; setTimeout(() => fn.style.borderColor = '', 1500); return; }
+      if (!nm.value.trim()) { nm.style.borderColor = '#efb4b2'; setTimeout(() => nm.style.borderColor = '', 1500); return; }
     }
-    if (required[from]) {
-      const el = document.getElementById(required[from]);
-      if (!el.value.trim()) {
-        el.style.borderColor = '#efb4b2';
-        setTimeout(() => { el.style.borderColor = ''; }, 1500);
-        return;
-      }
+    if (from === 2 && !getValue('q-what')) {
+      const el = document.getElementById('q-what');
+      el.style.borderColor = '#efb4b2'; setTimeout(() => el.style.borderColor = '', 1500); return;
+    }
+    if (from === 3 && !getValue('q-who')) {
+      const el = document.getElementById('q-who');
+      el.style.borderColor = '#efb4b2'; setTimeout(() => el.style.borderColor = '', 1500); return;
+    }
+    if (from === 5 && !getValue('q-location')) {
+      const el = document.getElementById('q-location');
+      el.style.borderColor = '#efb4b2'; setTimeout(() => el.style.borderColor = '', 1500); return;
     }
     showStep(from + 1);
   }
 
   function prevStep(from) { showStep(from - 1); }
+
+  function selectCTA(cta, btnId) {
+    selectedCTA = cta;
+    document.querySelectorAll('[id^="cta-"]').forEach(b => b.classList.remove('active'));
+    if (btnId) document.getElementById(btnId).classList.add('active');
+  }
+
+  function selectTone(tone, btnId) {
+    selectedTone = tone;
+    document.querySelectorAll('[id^="tone-"]').forEach(b => b.classList.remove('active'));
+    if (btnId) document.getElementById(btnId).classList.add('active');
+  }
 
   function addService() {
     if (serviceCount >= 3) return;
@@ -626,13 +565,6 @@
     });
   }
 
-  function selectTone(tone) {
-    selectedTone = tone;
-    ['friendly','professional','bold','calm','playful','inspiring'].forEach(t => {
-      document.getElementById('tone-' + t).classList.toggle('active', t === tone);
-    });
-  }
-
   function syncHex(idx) { document.getElementById('ch-' + idx).value = document.getElementById('cp-' + idx).value; }
   function syncPicker(idx) {
     const val = document.getElementById('ch-' + idx).value.trim();
@@ -648,8 +580,7 @@
       ].filter(c => c && /^#[0-9a-fA-F]{6}$/.test(c));
     }
     if (colourMode === 'idea') {
-      return [getValue('ci-0'), getValue('ci-1'), getValue('ci-2')]
-        .filter(c => c && /^#[0-9a-fA-F]{6}$/.test(c));
+      return [getValue('ci-0'), getValue('ci-1'), getValue('ci-2')].filter(c => c && /^#[0-9a-fA-F]{6}$/.test(c));
     }
     return [];
   }
@@ -698,7 +629,7 @@
     const about = getValue('q-about');
     const extra = getValue('q-extra');
     const tone = selectedTone;
-    const cta = selectedCTA || getValue('q-cta-custom') || 'Book a free call';
+    const cta = getValue('q-cta-custom') || selectedCTA;
     const services = getServices();
     const colours = getColours();
     const competitors = getCompetitors();
@@ -731,7 +662,7 @@
     document.getElementById('loading-status').textContent = 'Writing your copy...';
 
     const colourInstruction = colours.length
-      ? `BRAND COLOURS: primary ${colours[0]}${colours[1] ? ', secondary ' + colours[1] : ''}${colours[2] ? ', accent ' + colours[2] : ''}. Use these on headings, buttons, section backgrounds, and accents.`
+      ? `BRAND COLOURS: primary ${colours[0]}${colours[1] ? ', secondary ' + colours[1] : ''}${colours[2] ? ', accent ' + colours[2] : ''}. Apply these to ALL headings, buttons, section backgrounds, borders and accents.`
       : 'COLOURS: Use a clean neutral palette, white background, soft warm accents, dark professional text.';
 
     try {
@@ -780,7 +711,7 @@
         list.innerHTML = '';
         checklist.slice(0, 3).forEach(note => {
           const li = document.createElement('li');
-          li.innerHTML = `<span class="pf-note-dot"></span><span>${note}</span>`;
+          li.innerHTML = '<span class="pf-note-dot"></span><span>' + note + '</span>';
           list.appendChild(li);
         });
         box.style.display = 'block';
@@ -825,39 +756,22 @@
     const parser = new DOMParser();
     const doc = parser.parseFromString(generatedHTML, 'text/html');
     doc.querySelectorAll('style, script, nav').forEach(el => el.remove());
-    const sections = doc.querySelectorAll('section, header, footer, div[class*="section"], div[class*="hero"], div[class*="about"], div[class*="service"], div[class*="testimonial"], div[class*="cta"]');
-    let text = '';
-    if (sections.length > 0) {
-      sections.forEach(s => { text += s.innerText + '\n\n'; });
-    } else {
-      text = doc.body.innerText;
-    }
-    const businessName = document.getElementById('q-name') ? document.getElementById('q-name').value : 'Your business';
-    const ctaUsed = selectedCTA || 'Book a free call';
-    const wordContent = `
-HOMEPAGE FRAMEWORK — ${businessName.toUpperCase()}
-Generated by the Pink Fig Creative Homepage Framework Builder
-============================================================
-
-${text.trim()}
-
-============================================================
-READY TO BRING THIS TO LIFE?
-
-Option 1 — Get it done for you
-Book a 1-page website with Ina from Pink Fig Creative.
-Built in one day. Launched and ready to go.
-Book here: https://pinkfigcreative.as.me/1-page-website
-
-Option 2 — DIY it yourself
-Use the Website Launch Roadmap to build your own Squarespace website step by step.
-Get started: https://pfc.pinkfigcreative.com.au/hg
-
-Questions? Book a free Tea Chat with Ina: https://pinkfigcreative.as.me/teachat
-
-Pink Fig Creative | www.pinkfigcreative.com.au
-============================================================
-`;
+    const text = doc.body ? doc.body.innerText : '';
+    const businessName = getValue('q-name') || 'Your business';
+    const wordContent = 'HOMEPAGE FRAMEWORK\r\n' + businessName.toUpperCase() + '\r\nGenerated by Pink Fig Creative Homepage Framework Builder\r\n\r\n' +
+      '='.repeat(60) + '\r\n\r\n' + text.trim() + '\r\n\r\n' +
+      '='.repeat(60) + '\r\n\r\n' +
+      'READY TO BRING THIS TO LIFE?\r\n\r\n' +
+      'Option 1 - Get it done for you\r\n' +
+      'Book a 1-page website with Ina from Pink Fig Creative.\r\n' +
+      'Built in one day. Launched and ready to go.\r\n' +
+      'Book here: https://pinkfigcreative.as.me/1-page-website\r\n\r\n' +
+      'Option 2 - DIY it yourself\r\n' +
+      'Use the Website Launch Roadmap to build your own Squarespace website.\r\n' +
+      'Get started: https://pfc.pinkfigcreative.com.au/hg\r\n\r\n' +
+      'Questions? Book a free Tea Chat: https://pinkfigcreative.as.me/teachat\r\n\r\n' +
+      'Pink Fig Creative | www.pinkfigcreative.com.au\r\n' +
+      '='.repeat(60);
     const blob = new Blob(['\ufeff' + wordContent], { type: 'application/msword' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
@@ -874,39 +788,22 @@ Pink Fig Creative | www.pinkfigcreative.com.au
 
   function restart() {
     currentStep = 0; serviceCount = 1; generatedHTML = '';
+    selectedTone = 'friendly'; selectedCTA = 'Book a free call';
     document.getElementById('pf-result').classList.remove('visible');
     document.getElementById('pf-loading').classList.remove('visible');
     document.getElementById('pf-error').classList.remove('visible');
     document.getElementById('pf-competitor-notes').style.display = 'none';
     document.getElementById('pf-steps-container').classList.remove('hidden');
-    document.getElementById('services-container').innerHTML = `
-      <div class="pf-service-row">
-        <p class="pf-row-label">Service 1</p>
-        <div class="pf-service-fields">
-          <input type="text" placeholder="Service name" id="s0-name" />
-          <input type="text" placeholder="Price (e.g. $500)" id="s0-price" />
-        </div>
-        <div class="pf-service-desc">
-          <input type="text" placeholder="One-line description" id="s0-desc" />
-        </div>
-      </div>`;
+    document.getElementById('services-container').innerHTML = '<div class="pf-service-row"><p class="pf-row-label">Service 1</p><div class="pf-service-fields"><input type="text" placeholder="Service name" id="s0-name" /><input type="text" placeholder="Price (e.g. $500)" id="s0-price" /></div><div class="pf-service-desc"><input type="text" placeholder="One-line description" id="s0-desc" /></div></div>';
     document.getElementById('add-service-btn').style.display = 'block';
-    selectedTone = 'friendly';
-    selectedCTA = 'Book a free call';
-    ['friendly','professional','bold','calm','playful','inspiring'].forEach(t => {
-      const el = document.getElementById('tone-' + t);
-      if (el) el.classList.toggle('active', t === 'friendly');
-    });
-    ['book','enquire','quote','work','buy','freebie'].forEach(id => {
-      const el = document.getElementById('cta-' + id);
-      if (el) el.classList.remove('active');
-    });
     ['q-firstname','q-name','q-email','q-what','q-who','q-location','q-serve','q-about','q-extra','q-cta-custom','comp-0','comp-1','comp-2'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.value = '';
     });
     document.getElementById('about-counter').textContent = '0 / 600';
     document.getElementById('extra-counter').textContent = '0 / 1000';
+    document.querySelectorAll('[id^="tone-"]').forEach(b => b.classList.toggle('active', b.id === 'tone-friendly'));
+    document.querySelectorAll('[id^="cta-"]').forEach(b => b.classList.toggle('active', b.id === 'cta-book'));
     showStep(0);
   }
 </script>
