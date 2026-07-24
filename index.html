@@ -1,718 +1,212 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Homepage framework builder — Pink Fig Creative</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-<style>
-  :root {
-    --pf-blush: #f6e4dc;
-    --pf-plum: #5b395f;
-    --pf-white: #ffffff;
-    --pf-plum-light: #7a5280;
-    --pf-blush-dark: #e8c9b8;
-    --pf-text: #3a2040;
-    --pf-muted: #8a6d90;
-    --pf-coral: #efb4b2;
+export default async function handler(req, res) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  body {
-    font-family: 'Montserrat', sans-serif;
-    background: var(--pf-white);
-    color: var(--pf-text);
-    min-height: 100vh;
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
   }
 
-  .pf-header {
-    background: var(--pf-blush);
-    padding: 18px 32px 16px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    border-bottom: 1px solid var(--pf-blush-dark);
+  const { name, what, who, location, serve, about, extra, tone, services, extraSections, extraInsights, colourInstruction } = req.body;
+
+  if (!name || !what || !who || !location || !services) {
+    return res.status(400).json({ error: 'Missing required fields' });
   }
 
-  .pf-logo-img { width: 46px; height: 46px; object-fit: contain; }
+  const servicesText = services
+    .map(s => `- ${s.name}${s.price ? ' (' + s.price + ')' : ''}${s.desc ? ': ' + s.desc : ''}`)
+    .join('\n');
 
-  .pf-header-text h1 { font-size: 17px; color: var(--pf-plum); font-weight: 600; }
-  .pf-header-text p { font-size: 12px; color: var(--pf-muted); margin-top: 1px; }
+  const extraSectionsText = extraSections && extraSections.length
+    ? `\nADDITIONAL SECTIONS FROM COMPETITOR ANALYSIS: ${extraSections.join(', ')}. ${extraInsights}`
+    : '';
 
-  .pf-body { max-width: 680px; margin: 0 auto; padding: 36px 28px 60px; }
+  const aboutText = about ? `ABOUT THE BUSINESS OWNER: ${about}` : '';
+  const extraNotes = extra ? `ADDITIONAL CONTEXT: ${extra}` : '';
 
-  .pf-progress { display: flex; gap: 6px; margin-bottom: 28px; }
-  .pf-dot { flex: 1; height: 3px; background: var(--pf-blush-dark); border-radius: 2px; transition: background 0.3s; }
-  .pf-dot.active { background: var(--pf-plum); }
-  .pf-dot.done { background: var(--pf-plum-light); }
+  // Parse colours from colourInstruction
+  const colours = colourInstruction || '';
+  let primaryColour = '#333333';
+  let secondaryColour = '#f5f5f5';
+  let accentColour = '#666666';
 
-  .pf-step { display: none; }
-  .pf-step.visible { display: block; }
-
-  .pf-step-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--pf-muted); margin-bottom: 6px; font-weight: 500; }
-  .pf-step-heading { font-size: 22px; color: var(--pf-coral); margin-bottom: 6px; line-height: 1.3; font-weight: 600; }
-  .pf-step-sub { font-size: 14px; color: var(--pf-muted); margin-bottom: 20px; line-height: 1.5; }
-
-  .pf-welcome { background: var(--pf-blush); border-radius: 14px; padding: 28px 24px; margin-bottom: 8px; }
-  .pf-welcome-title { font-size: 48px; color: var(--pf-plum); font-weight: 700; margin-bottom: 4px; line-height: 1.1; }
-  .pf-welcome-sub { font-size: 14px; color: var(--pf-plum); font-weight: 500; margin-bottom: 18px; }
-  .pf-welcome p { font-size: 14px; color: var(--pf-plum); line-height: 1.8; margin-bottom: 12px; }
-  .pf-welcome p:last-of-type { margin-bottom: 0; }
-  .pf-welcome strong { font-weight: 600; }
-
-  .pf-input { width: 100%; background: var(--pf-white); border: 1.5px solid var(--pf-blush-dark); border-radius: 10px; padding: 13px 16px; font-family: 'Montserrat', sans-serif; font-size: 15px; color: var(--pf-text); outline: none; transition: border-color 0.2s; margin-bottom: 10px; display: block; }
-  .pf-input:focus { border-color: var(--pf-plum); }
-  .pf-textarea { resize: vertical; min-height: 80px; }
-
-  .pf-char-counter { font-size: 11px; color: var(--pf-muted); text-align: right; margin-top: -8px; margin-bottom: 10px; }
-  .pf-char-counter.warn { color: var(--pf-coral); }
-
-  .pf-service-row { background: var(--pf-blush); border: 1.5px solid var(--pf-blush-dark); border-radius: 10px; padding: 14px 16px; margin-bottom: 10px; }
-  .pf-row-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--pf-muted); margin-bottom: 8px; font-weight: 500; }
-  .pf-service-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .pf-service-fields input, .pf-service-desc input { background: var(--pf-white); border: 1px solid var(--pf-blush-dark); border-radius: 8px; padding: 9px 12px; font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--pf-text); outline: none; width: 100%; transition: border-color 0.2s; }
-  .pf-service-fields input:focus, .pf-service-desc input:focus { border-color: var(--pf-plum); }
-  .pf-service-desc { margin-top: 8px; }
-
-  .pf-add-btn { background: transparent; border: 1.5px dashed var(--pf-plum-light); border-radius: 10px; padding: 10px 16px; font-family: 'Montserrat', sans-serif; font-size: 13px; color: var(--pf-plum-light); cursor: pointer; width: 100%; text-align: center; transition: all 0.2s; margin-bottom: 10px; }
-  .pf-add-btn:hover { background: rgba(91,57,95,0.06); border-color: var(--pf-plum); color: var(--pf-plum); }
-
-  .pf-colours-toggle { display: flex; gap: 10px; margin-bottom: 20px; }
-  .pf-toggle-btn { flex: 1; padding: 11px 10px; border-radius: 10px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 500; cursor: pointer; transition: all 0.2s; border: 1.5px solid var(--pf-blush-dark); background: var(--pf-white); color: var(--pf-muted); text-align: center; }
-  .pf-toggle-btn.active { background: var(--pf-plum); color: var(--pf-white); border-color: var(--pf-plum); }
-
-  .pf-colours-panel { display: none; }
-  .pf-colours-panel.visible { display: block; }
-
-  .pf-colour-row { display: grid; grid-template-columns: 62px 40px 160px; gap: 10px; align-items: center; margin-bottom: 10px; }
-  .pf-colour-row.idea-row { grid-template-columns: 62px 1fr; }
-  .pf-colour-swatch { width: 40px; height: 40px; border-radius: 8px; border: 1.5px solid var(--pf-blush-dark); padding: 2px; cursor: pointer; background: none; }
-  .pf-colour-hex { background: var(--pf-white); border: 1.5px solid var(--pf-blush-dark); border-radius: 10px; padding: 10px 14px; font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--pf-text); outline: none; transition: border-color 0.2s; width: 100%; }
-  .pf-colour-hex:focus { border-color: var(--pf-plum); }
-  .pf-colour-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--pf-muted); font-weight: 500; white-space: nowrap; }
-
-  .pf-tip { background: rgba(239,180,178,0.15); border-left: 3px solid var(--pf-coral); border-radius: 0 8px 8px 0; padding: 10px 14px; font-size: 13px; color: var(--pf-plum); margin-bottom: 18px; line-height: 1.6; }
-
-  .pf-optional-tag { font-size: 11px; background: rgba(239,180,178,0.2); color: var(--pf-coral); padding: 2px 7px; border-radius: 4px; margin-left: 6px; font-weight: 400; vertical-align: middle; }
-
-  .pf-nav { display: flex; gap: 10px; margin-top: 24px; }
-  .pf-btn-back { background: transparent; border: 1.5px solid var(--pf-blush-dark); border-radius: 10px; padding: 12px 20px; font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--pf-muted); cursor: pointer; transition: all 0.2s; }
-  .pf-btn-back:hover { border-color: var(--pf-plum-light); color: var(--pf-plum); }
-  .pf-btn-next { flex: 1; background: var(--pf-plum); border: none; border-radius: 10px; padding: 13px 20px; font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 500; color: var(--pf-white); cursor: pointer; transition: background 0.2s; }
-  .pf-btn-next:hover { background: var(--pf-plum-light); }
-  .pf-btn-generate { flex: 1; background: var(--pf-plum); border: none; border-radius: 10px; padding: 14px 20px; font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 500; color: var(--pf-white); cursor: pointer; transition: background 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
-  .pf-btn-generate:hover { background: var(--pf-plum-light); }
-
-  .pf-loading { display: none; text-align: center; padding: 80px 20px; }
-  .pf-loading.visible { display: block; }
-  .pf-spinner { width: 48px; height: 48px; border: 3px solid var(--pf-blush-dark); border-top-color: var(--pf-plum); border-radius: 50%; animation: spin 0.9s linear infinite; margin: 0 auto 20px; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .pf-loading h3 { font-size: 18px; color: var(--pf-coral); margin-bottom: 6px; font-weight: 600; }
-  .pf-loading p { font-size: 13px; color: var(--pf-muted); }
-  .pf-loading-status { font-size: 12px; color: var(--pf-plum-light); margin-top: 14px; min-height: 20px; }
-
-  .pf-result { display: none; }
-  .pf-result.visible { display: block; }
-  #pf-steps-container.hidden { display: none; }
-
-  .pf-result-card { background: var(--pf-blush); border-radius: 16px; padding: 40px 32px; text-align: center; margin-bottom: 24px; }
-  .pf-result-card h2 { font-size: 22px; color: var(--pf-coral); font-weight: 600; margin-bottom: 10px; }
-  .pf-result-card p { font-size: 14px; color: var(--pf-plum); line-height: 1.7; margin-bottom: 32px; }
-
-  .pf-result-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .pf-result-btn { background: var(--pf-plum); border: none; border-radius: 10px; border-top-left-radius: 0; padding: 16px 20px; font-family: 'Montserrat', sans-serif; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-  .pf-result-btn.secondary { background: var(--pf-white); border: 1.5px solid var(--pf-blush-dark); border-top-left-radius: 0; }
-  .btn-icon { font-size: 22px; color: var(--pf-white); }
-  .pf-result-btn.secondary .btn-icon { color: var(--pf-plum); }
-  .btn-label { font-size: 13px; font-weight: 500; color: var(--pf-white); }
-  .pf-result-btn.secondary .btn-label { color: var(--pf-plum); }
-  .btn-sub { font-size: 11px; color: var(--pf-white); opacity: 0.75; }
-  .pf-result-btn.secondary .btn-sub { color: var(--pf-muted); opacity: 1; }
-
-  .pf-sections-info { background: var(--pf-white); border: 1.5px solid var(--pf-blush-dark); border-radius: 12px; padding: 16px 18px; margin-bottom: 16px; }
-  .pf-sections-info p { font-size: 12px; color: var(--pf-muted); font-weight: 500; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.06em; }
-  .pf-sections-used { display: flex; flex-wrap: wrap; gap: 6px; }
-  .pf-badge { background: var(--pf-plum); color: var(--pf-white); font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; }
-  .pf-badge.extra { background: transparent; border: 1.5px solid var(--pf-coral); color: var(--pf-plum); }
-
-  .pf-competitor-notes { background: var(--pf-white); border: 1.5px solid var(--pf-coral); border-radius: 12px; padding: 16px 18px; margin-bottom: 16px; }
-  .pf-competitor-notes h4 { font-size: 12px; font-weight: 600; color: var(--pf-coral); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
-  .pf-competitor-notes ul { list-style: none; padding: 0; }
-  .pf-competitor-notes li { font-size: 13px; color: var(--pf-plum); padding: 7px 0; border-bottom: 1px solid var(--pf-blush-dark); line-height: 1.5; display: flex; gap: 10px; align-items: flex-start; }
-  .pf-competitor-notes li:last-child { border-bottom: none; }
-  .pf-note-dot { width: 6px; height: 6px; background: var(--pf-coral); border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
-
-  .pf-error { background: #fef0f0; border: 1.5px solid #f5c6c6; border-radius: 10px; padding: 14px 16px; font-size: 13px; color: #c0392b; margin-top: 12px; line-height: 1.5; display: none; }
-  .pf-error.visible { display: block; }
-
-  .pf-footer-note { text-align: center; margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--pf-blush-dark); }
-  .pf-footer-note p { font-size: 12px; color: var(--pf-muted); line-height: 2; }
-  .pf-footer-note a { color: var(--pf-plum); text-decoration: none; font-weight: 600; }
-  .pf-footer-note a:hover { color: var(--pf-coral); }
-
-  @media (max-width: 600px) {
-    .pf-body { padding: 24px 18px 40px; }
-    .pf-header { padding: 14px 18px; }
-    .pf-step-heading { font-size: 19px; }
-    .pf-service-fields { grid-template-columns: 1fr; }
-    .pf-colours-toggle { flex-direction: column; }
-    .pf-result-buttons { grid-template-columns: 1fr; }
+  if (colours.includes('primary')) {
+    const primaryMatch = colours.match(/primary ([#\w]+)/);
+    if (primaryMatch) primaryColour = primaryMatch[1];
   }
-</style>
-</head>
-<body>
-
-<div class="pf-header">
-  <img src="https://static1.squarespace.com/static/63e2e42b49b21e5c93a9ae87/t/63e2f04c0e78cd3e6c57042b/1675817037095/Pink+Fig+Instagram+Intagram.png" class="pf-logo-img" alt="Pink Fig Creative" onerror="this.style.display='none'" />
-  <div class="pf-header-text">
-    <h1>Homepage framework builder</h1>
-    <p>Pink Fig Creative</p>
-  </div>
-</div>
-
-<div class="pf-body">
-  <div id="pf-steps-container">
-    <div class="pf-progress" id="pf-progress"></div>
-
-    <!-- STEP 0: WELCOME -->
-    <div class="pf-step visible" id="step-0">
-      <div class="pf-welcome">
-        <p class="pf-welcome-title">Welcome.</p>
-        <p class="pf-welcome-sub">This tool was built by Ina from Pink Fig Creative.</p>
-        <p>With over 7 years designing Squarespace websites for service-based businesses, I know the hardest part isn't the design. It's knowing what to say and where to put it on the website.</p>
-        <p>This framework gives you exactly that. It's not a live website. It's a complete homepage structure with your copy, your services, and your voice built in seconds, ready to guide your build and use it as inspiration. Make the copy suggested yours, get in, make changes to it.</p>
-        <p><strong>Get your homepage framework. Start building with confidence.</strong></p>
-        <p>Enjoy the ride! Ina</p>
-      </div>
-      <div class="pf-nav">
-        <button class="pf-btn-next" onclick="nextStep(0)">Let's get started</button>
-      </div>
-    </div>
-
-    <!-- STEP 1: BUSINESS NAME -->
-    <div class="pf-step" id="step-1">
-      <p class="pf-step-label">Step 1 of 8</p>
-      <h2 class="pf-step-heading">What's your business name?</h2>
-      <p class="pf-step-sub">This will appear throughout your homepage copy.</p>
-      <input class="pf-input" type="text" id="q-name" placeholder="e.g. Bloom Coaching" />
-      <div class="pf-nav">
-        <button class="pf-btn-back" onclick="prevStep(1)">Back</button>
-        <button class="pf-btn-next" onclick="nextStep(1)">Next</button>
-      </div>
-    </div>
-
-    <!-- STEP 2: WHAT DO YOU DO -->
-    <div class="pf-step" id="step-2">
-      <p class="pf-step-label">Step 2 of 8</p>
-      <h2 class="pf-step-heading">What services do you offer?</h2>
-      <p class="pf-step-sub">In plain terms. What service do you provide and what outcome does it create for your clients?</p>
-      <textarea class="pf-input pf-textarea" id="q-what" placeholder="e.g. I help busy women build confidence through 1:1 coaching and group programs" style="min-height: 160px;"></textarea>
-      <div class="pf-nav">
-        <button class="pf-btn-back" onclick="prevStep(2)">Back</button>
-        <button class="pf-btn-next" onclick="nextStep(2)">Next</button>
-      </div>
-    </div>
-
-    <!-- STEP 3: WHO -->
-    <div class="pf-step" id="step-3">
-      <p class="pf-step-label">Step 3 of 8</p>
-      <h2 class="pf-step-heading">Who do you work with?</h2>
-      <p class="pf-step-sub">Describe your ideal client. The more specific, the better your copy will be.</p>
-      <textarea class="pf-input pf-textarea" id="q-who" placeholder="e.g. Female entrepreneurs in their 30s and 40s who feel stuck and overwhelmed in their business" style="min-height: 160px;"></textarea>
-      <div class="pf-nav">
-        <button class="pf-btn-back" onclick="prevStep(3)">Back</button>
-        <button class="pf-btn-next" onclick="nextStep(3)">Next</button>
-      </div>
-    </div>
-
-    <!-- STEP 4: LOCATION -->
-    <div class="pf-step" id="step-4">
-      <p class="pf-step-label">Step 4 of 8</p>
-      <h2 class="pf-step-heading">Where are you based?</h2>
-      <p class="pf-step-sub">City and country. This helps with local SEO and positioning.</p>
-      <input class="pf-input" type="text" id="q-location" placeholder="e.g. Sydney, Australia" />
-      <label class="pf-step-sub" style="margin-bottom:8px; display:block;">Where do you serve your clients?</label>
-      <input class="pf-input" type="text" id="q-serve" placeholder="e.g. Online, Sydney based, or both" />
-      <div class="pf-nav">
-        <button class="pf-btn-back" onclick="prevStep(4)">Back</button>
-        <button class="pf-btn-next" onclick="nextStep(4)">Next</button>
-      </div>
-    </div>
-
-    <!-- STEP 5: ABOUT YOU -->
-    <div class="pf-step" id="step-5">
-      <p class="pf-step-label">Step 5 of 8</p>
-      <h2 class="pf-step-heading">Tell us a little about you.</h2>
-      <p class="pf-step-sub">Up to 100 words. Share your background, why you started your business, and what makes you different. This goes into your about section.</p>
-      <textarea class="pf-input pf-textarea" id="q-about" placeholder="e.g. I'm a Sydney-based designer with 10 years of experience helping small businesses get online. I started my business because I believe every business deserves a beautiful website without the overwhelm..." style="min-height: 130px;" oninput="countChars(this, 'about-counter', 600)"></textarea>
-      <p class="pf-char-counter" id="about-counter">0 / 600</p>
-      <div class="pf-nav">
-        <button class="pf-btn-back" onclick="prevStep(5)">Back</button>
-        <button class="pf-btn-next" onclick="nextStep(5)">Next</button>
-      </div>
-    </div>
-
-    <!-- STEP 6: SERVICES -->
-    <div class="pf-step" id="step-6">
-      <p class="pf-step-label">Step 6 of 8</p>
-      <h2 class="pf-step-heading">What services do you offer?</h2>
-      <p class="pf-step-sub">Add up to 3. Include a name, price, and short description for each.</p>
-      <div id="services-container">
-        <div class="pf-service-row">
-          <p class="pf-row-label">Service 1</p>
-          <div class="pf-service-fields">
-            <input type="text" placeholder="Service name" id="s0-name" />
-            <input type="text" placeholder="Price (e.g. $500)" id="s0-price" />
-          </div>
-          <div class="pf-service-desc">
-            <input type="text" placeholder="One-line description" id="s0-desc" />
-          </div>
-        </div>
-      </div>
-      <button class="pf-add-btn" id="add-service-btn" onclick="addService()">+ Add another service</button>
-      <div class="pf-nav">
-        <button class="pf-btn-back" onclick="prevStep(6)">Back</button>
-        <button class="pf-btn-next" onclick="nextStep(6)">Next</button>
-      </div>
-    </div>
-
-    <!-- STEP 7: BRAND COLOURS -->
-    <div class="pf-step" id="step-7">
-      <p class="pf-step-label">Step 7 of 8</p>
-      <h2 class="pf-step-heading">Let's talk colours.</h2>
-      <p class="pf-step-sub">If you already have brand colours, pop in up to 3 hex codes below. These will be applied directly to your homepage framework. Not there yet? That's completely fine. Just tell us one colour you're drawn to and we'll take it from there.</p>
-
-      <div class="pf-colours-toggle">
-        <button class="pf-toggle-btn active" id="toggle-brand" onclick="toggleColours('brand')">I have brand colours</button>
-        <button class="pf-toggle-btn" id="toggle-idea" onclick="toggleColours('idea')">I have a colour in mind</button>
-        <button class="pf-toggle-btn" id="toggle-none" onclick="toggleColours('none')">Not sure yet</button>
-      </div>
-
-      <div class="pf-colours-panel visible" id="panel-brand">
-        <div class="pf-colour-row">
-          <span class="pf-colour-label">Colour 1</span>
-          <input type="color" class="pf-colour-swatch" id="cp-0" value="#5b395f" oninput="syncHex(0)" />
-          <input type="text" class="pf-colour-hex" id="ch-0" placeholder="#5b395f" oninput="syncPicker(0)" maxlength="7" />
-        </div>
-        <div class="pf-colour-row">
-          <span class="pf-colour-label">Colour 2</span>
-          <input type="color" class="pf-colour-swatch" id="cp-1" value="#f6e4dc" oninput="syncHex(1)" />
-          <input type="text" class="pf-colour-hex" id="ch-1" placeholder="#f6e4dc" oninput="syncPicker(1)" maxlength="7" />
-        </div>
-        <div class="pf-colour-row">
-          <span class="pf-colour-label">Colour 3</span>
-          <input type="color" class="pf-colour-swatch" id="cp-2" value="#efb4b2" oninput="syncHex(2)" />
-          <input type="text" class="pf-colour-hex" id="ch-2" placeholder="#efb4b2" oninput="syncPicker(2)" maxlength="7" />
-        </div>
-      </div>
-
-      <div class="pf-colours-panel" id="panel-idea">
-        <div class="pf-colour-row idea-row">
-          <span class="pf-colour-label">Colour 1</span>
-          <input type="text" class="pf-colour-hex" id="ci-0" placeholder="e.g. #5b395f" maxlength="7" />
-        </div>
-        <div class="pf-colour-row idea-row">
-          <span class="pf-colour-label">Colour 2</span>
-          <input type="text" class="pf-colour-hex" id="ci-1" placeholder="e.g. #f6e4dc" maxlength="7" />
-        </div>
-        <div class="pf-colour-row idea-row">
-          <span class="pf-colour-label">Colour 3</span>
-          <input type="text" class="pf-colour-hex" id="ci-2" placeholder="e.g. #efb4b2" maxlength="7" />
-        </div>
-      </div>
-
-      <div class="pf-colours-panel" id="panel-none">
-        <div class="pf-tip">No problem. We'll use a clean neutral palette that works for any service business. You can always update colours once you're in Squarespace.</div>
-      </div>
-
-      <div class="pf-nav">
-        <button class="pf-btn-back" onclick="prevStep(7)">Back</button>
-        <button class="pf-btn-next" onclick="nextStep(7)">Next</button>
-      </div>
-    </div>
-
-    <!-- STEP 8: COMPETITORS -->
-    <div class="pf-step" id="step-8">
-      <p class="pf-step-label">Step 8 of 9</p>
-      <h2 class="pf-step-heading">Name three competitors.</h2>
-      <p class="pf-step-sub">No need to be in the same city. This is mandatory.</p>
-      <div class="pf-tip">We'll visit your competitors' websites, see what sections and ideas they're using, and pull the best bits into your homepage framework. You'll also get a short checklist of things worth noting from their sites.</div>
-      <input class="pf-input" type="url" id="comp-0" placeholder="https://competitor1.com" />
-      <input class="pf-input" type="url" id="comp-1" placeholder="https://competitor2.com" />
-      <input class="pf-input" type="url" id="comp-2" placeholder="https://competitor3.com" />
-      <div class="pf-nav">
-        <button class="pf-btn-back" onclick="prevStep(8)">Back</button>
-        <button class="pf-btn-next" onclick="nextStep(8)">Next</button>
-      </div>
-    </div>
-
-    <!-- STEP 9: FREE WRITING -->
-    <div class="pf-step" id="step-9">
-      <p class="pf-step-label">Step 9 of 9</p>
-      <h2 class="pf-step-heading">Anything else I should know?</h2>
-      <p class="pf-step-sub">Free writing. Add anything that might help make your copy even better. Your tone of voice, things you love about your business, awards, a story, something your clients always say. No rules here.</p>
-      <textarea class="pf-input pf-textarea" id="q-extra" placeholder="e.g. My clients always say I make them feel at ease. I won a local business award in 2023. I want my website to feel warm but professional, not too corporate..." style="min-height: 140px;" oninput="countChars(this, 'extra-counter', 1000)"></textarea>
-      <p class="pf-char-counter" id="extra-counter">0 / 1000</p>
-      <div class="pf-nav">
-        <button class="pf-btn-back" onclick="prevStep(9)">Back</button>
-        <button class="pf-btn-generate" onclick="generate()">&#10024; Generate my homepage</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- LOADING -->
-  <div class="pf-loading" id="pf-loading">
-    <div class="pf-spinner"></div>
-    <h3>Building your homepage framework...</h3>
-    <p>This takes about 30 seconds.</p>
-    <p class="pf-loading-status" id="loading-status">Getting started...</p>
-  </div>
-
-  <!-- RESULT -->
-  <div class="pf-result" id="pf-result">
-    <div class="pf-result-card">
-      <h2>Your homepage framework is ready!</h2>
-      <p>I highly recommend you download the code, otherwise you would lose all your hard work when you close this tab. You can also preview it, or copy the code. Open it in your browser to see the full design. Remember, this is your starting point, not a finished website. Make the copy yours. Take it to your designer or DIY it using <a href="https://pfc.pinkfigcreative.com.au/hg" target="_blank" style="color:var(--pf-plum);font-weight:600;">The Website Launch Roadmap</a></p>
-      <div class="pf-result-buttons">
-        <button class="pf-result-btn" onclick="downloadHTML()">
-          <span class="btn-icon">&#11015;</span>
-          <span class="btn-label">Download HTML</span>
-          <span class="btn-sub">Save to your computer</span>
-        </button>
-        <button class="pf-result-btn" onclick="openInNewTab()">
-          <span class="btn-icon">&#128065;</span>
-          <span class="btn-label">Preview in new tab</span>
-          <span class="btn-sub">See the full design</span>
-        </button>
-        <button class="pf-result-btn secondary" onclick="copyCode()">
-          <span class="btn-icon">&#128203;</span>
-          <span class="btn-label" id="copy-btn-label">Copy HTML</span>
-          <span class="btn-sub">Copy the code</span>
-        </button>
-        <button class="pf-result-btn secondary" onclick="restart()">
-          <span class="btn-icon">&#8635;</span>
-          <span class="btn-label">Start over</span>
-          <span class="btn-sub">Build a new one</span>
-        </button>
-      </div>
-    </div>
-
-    <div class="pf-competitor-notes" id="pf-competitor-notes" style="display:none;">
-      <h4>Things to check on your competitors</h4>
-      <ul id="competitor-notes-list"></ul>
-    </div>
-
-    <div class="pf-sections-info">
-      <p>Sections included in your framework:</p>
-      <div class="pf-sections-used" id="sections-list"></div>
-    </div>
-
-    <div class="pf-error" id="pf-error"></div>
-  </div>
-
-  <div class="pf-footer-note">
-    <p>Built with the Pink Fig Creative homepage framework.</p>
-    <p><a href="https://pfc.pinkfigcreative.com.au/hg" target="_blank">Secrets to a homepage that converts</a> + competitors analysis.</p>
-    <p>Ready to build it? DIY with the <a href="https://pfc.pinkfigcreative.com.au/hg" target="_blank">Website Launch Roadmap</a></p>
-  </div>
-</div>
-
-<script>
-  const TOTAL_STEPS = 9;
-  let currentStep = 0;
-  let serviceCount = 1;
-  let generatedHTML = '';
-  let colourMode = 'brand';
-
-  function buildProgress() {
-    const el = document.getElementById('pf-progress');
-    if (!el) return;
-    el.innerHTML = '';
-    const adj = currentStep - 1;
-    for (let i = 0; i < 9; i++) {
-      const d = document.createElement('div');
-      d.className = 'pf-dot' + (i === adj ? ' active' : i < adj ? ' done' : '');
-      el.appendChild(d);
-    }
+  if (colours.includes('secondary')) {
+    const secondaryMatch = colours.match(/secondary ([#\w]+)/);
+    if (secondaryMatch) secondaryColour = secondaryMatch[1];
+  }
+  if (colours.includes('accent')) {
+    const accentMatch = colours.match(/accent ([#\w]+)/);
+    if (accentMatch) accentColour = accentMatch[1];
   }
 
-  buildProgress();
+  const toneDescriptions = {
+    friendly: 'warm, conversational and approachable, like talking to a trusted friend',
+    professional: 'polished, confident and credible, professional without being cold',
+    bold: 'direct, strong and no-nonsense, straight to the point with no fluff',
+    calm: 'gentle, supportive and reassuring, puts clients at ease immediately',
+    playful: 'fun, energetic and full of personality, a little cheeky',
+    inspiring: 'uplifting, empowering and motivational, makes clients feel they can achieve anything'
+  };
+  const toneStyle = toneDescriptions[tone] || toneDescriptions.friendly;
 
-  function showStep(n) {
-    document.querySelectorAll('.pf-step').forEach(s => s.classList.remove('visible'));
-    const el = document.getElementById('step-' + n);
-    if (el) el.classList.add('visible');
-    currentStep = n;
-    buildProgress();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+  const prompt = `You are an expert website copywriter. Generate a complete homepage HTML for a service-based business.
 
-  function getValue(id) {
-    const el = document.getElementById(id);
-    return el ? el.value.trim() : '';
-  }
+BUSINESS DETAILS:
+- Business name: ${name}
+- Services offered: ${what}
+- Ideal client: ${who}
+- Location: ${location}
+- Where they serve clients: ${serve || 'not specified'}
+- Services:
+${servicesText}
+${aboutText}
+${extraNotes}
+${extraSectionsText}
 
-  function nextStep(from) {
-    const required = { 1: 'q-name', 2: 'q-what', 3: 'q-who', 4: 'q-location' };
-    if (required[from]) {
-      const el = document.getElementById(required[from]);
-      if (!el.value.trim()) {
-        el.style.borderColor = '#efb4b2';
-        setTimeout(() => { el.style.borderColor = ''; }, 1500);
-        return;
-      }
-    }
-    showStep(from + 1);
-  }
+BRAND COLOURS (use these throughout — apply them to ALL headings, buttons, backgrounds, borders, and accents):
+- Primary colour (headings, buttons, nav, section backgrounds): ${primaryColour}
+- Secondary colour (alternate section backgrounds, card backgrounds): ${secondaryColour}
+- Accent colour (highlights, links, borders): ${accentColour}
+- White (#ffffff) for text on dark backgrounds and card content areas
+- Use these colours consistently. Every button must use the primary colour. Every section heading must use the primary colour.
 
-  function prevStep(from) { showStep(from - 1); }
+TONE OF VOICE: Write all copy in a ${toneStyle} tone.
 
-  function addService() {
-    if (serviceCount >= 3) return;
-    const idx = serviceCount;
-    const row = document.createElement('div');
-    row.className = 'pf-service-row';
-    row.innerHTML = `
-      <p class="pf-row-label">Service ${idx + 1}</p>
-      <div class="pf-service-fields">
-        <input type="text" placeholder="Service name" id="s${idx}-name" />
-        <input type="text" placeholder="Price (e.g. $500)" id="s${idx}-price" />
-      </div>
-      <div class="pf-service-desc">
-        <input type="text" placeholder="One-line description" id="s${idx}-desc" />
-      </div>`;
-    document.getElementById('services-container').appendChild(row);
-    serviceCount++;
-    if (serviceCount >= 3) document.getElementById('add-service-btn').style.display = 'none';
-  }
+CRITICAL RULES:
+1. COPY FIRST. This is a homepage framework. Complete structured copy is the goal. Every section must have real, useful, specific copy based on the business details provided.
+2. NO ANIMATIONS. Zero CSS transitions, keyframes, hover effects, transforms. Static HTML only.
+3. SIMPLE CLEAN HTML. No gradients, no shadows, no box-shadow, no complex layouts. Flat colours only.
+4. ALWAYS FINISH THE PAGE. If running low on tokens, simplify CSS but never cut a section. A simple complete page beats a beautiful incomplete one.
+5. TOKEN BUDGET. Spend tokens on copy, not CSS. Keep CSS minimal and reuse classes.
+6. TWO COLUMNS FOR LONG TEXT. Any text block over 100 words must be split into two columns or broken up with a heading or placeholder image between paragraphs.
+7. IMAGE PLACEHOLDERS. Include placeholder images in every section that would benefit from one. Use a simple grey div with a label inside. Never leave image spots empty.
 
-  function getServices() {
-    const services = [];
-    for (let i = 0; i < serviceCount; i++) {
-      const name = getValue('s' + i + '-name');
-      const price = getValue('s' + i + '-price');
-      const desc = getValue('s' + i + '-desc');
-      if (name) services.push({ name, price, desc });
-    }
-    return services;
-  }
+MANDATORY HOMEPAGE SECTIONS (all required, in this order):
+1. NAV: Business name as logo on left, simple navigation links on right. Use primary colour as background.
 
-  function toggleColours(mode) {
-    colourMode = mode;
-    ['brand', 'idea', 'none'].forEach(m => {
-      document.getElementById('toggle-' + m).classList.toggle('active', m === mode);
-      document.getElementById('panel-' + m).classList.toggle('visible', m === mode);
+2. HERO: 
+   - H1 exactly 5-8 words
+   - One subheading sentence
+   - One CTA button in primary colour
+   - A LARGE placeholder image on the right side (use a grey div at least 400px tall with text "[Hero image — add your best photo here]")
+   - Layout: two columns, copy on left, image on right
+
+3. IDEAL CUSTOMER:
+   - Section heading
+   - Short paragraph (under 50 words) addressing their situation
+   - 5-6 bullet points showing you understand their pain points
+   - Use secondary colour as background
+
+4. SERVICES:
+   - Section heading
+   - Each service as a simple card: name, price if provided, 2-3 sentence description
+   - Cards in a row (2 or 3 across)
+   - CTA button below cards
+
+5. ABOUT:
+   - Two column layout: placeholder image on left, copy on right
+   - Use the about text provided, written in first person
+   - Placeholder image: grey div with "[Your photo here]"
+   - One CTA button
+   - Use secondary colour as background
+
+6. TESTIMONIALS:
+   - 3 placeholder testimonials in cards
+   - Mark each as [PLACEHOLDER, replace with real testimonial]
+   - Include placeholder name and business
+
+7. CTA SECTION:
+   - Strong heading
+   - One short paragraph
+   - One large CTA button in primary colour
+
+8. FOOTER:
+   - Business name
+   - Simple nav links
+   - Contact email: [your@email.com]
+   - Copyright notice
+   - Privacy Policy placeholder link
+   - Use primary colour as background, white text
+${extraSections && extraSections.length ? '\n9. COMPETITOR EXTRAS: ' + extraSections.join(', ') + ' — add simply after services section.' : ''}
+
+TEA CHAT POPUP (add this at the very end of the body, before </body>):
+A fixed popup in the bottom right corner of the page with:
+- Background: primary colour (${primaryColour})
+- White text
+- Small heading: "Let's chat about your website"
+- One line: "Book a free Tea Chat with Ina"
+- A button linking to https://pinkfigcreative.as.me/teachat that says "Book now"
+- A small X button to close it
+- Position: fixed, bottom: 24px, right: 24px, width: 260px, padding: 20px, border-radius: 12px, border-top-left-radius: 0
+- Include a small JavaScript snippet to handle the close button only (no other JS)
+
+COPY RULES:
+- Tone: ${toneStyle}
+- First person: "I", never "we"
+- Sentence case headings only
+- No em dashes, use commas or full stops
+- No italics
+- H1 between 5 and 8 words, count carefully
+- Speak directly to: ${who}
+- Mention ${location} naturally for local SEO
+- Make all copy specific to the business, not generic filler
+
+HTML RULES:
+- Google Font Montserrat only
+- Mobile responsive with simple media queries
+- No animations, no transitions, no keyframes
+- No JavaScript except for the popup close button
+- Keep all CSS in a single style tag in the head
+
+OUTPUT: Return ONLY the complete HTML starting with <!DOCTYPE html> and ending with </html>. No explanation. No markdown. Just the HTML.`;
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': process.env.ANTHROPIC_API_KEY,
+        'anthropic-version': '2023-06-01'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 14000,
+        messages: [{ role: 'user', content: prompt }]
+      })
     });
-  }
 
-  function syncHex(idx) { document.getElementById('ch-' + idx).value = document.getElementById('cp-' + idx).value; }
-  function syncPicker(idx) {
-    const val = document.getElementById('ch-' + idx).value.trim();
-    if (/^#[0-9a-fA-F]{6}$/.test(val)) document.getElementById('cp-' + idx).value = val;
-  }
+    const data = await response.json();
 
-  function getColours() {
-    if (colourMode === 'brand') {
-      return [
-        getValue('ch-0') || document.getElementById('cp-0').value,
-        getValue('ch-1') || document.getElementById('cp-1').value,
-        getValue('ch-2') || document.getElementById('cp-2').value,
-      ].filter(c => c && /^#[0-9a-fA-F]{6}$/.test(c));
-    }
-    if (colourMode === 'idea') {
-      return [getValue('ci-0'), getValue('ci-1'), getValue('ci-2')]
-        .filter(c => c && /^#[0-9a-fA-F]{6}$/.test(c));
-    }
-    return [];
-  }
-
-  function getCompetitors() {
-    return [getValue('comp-0'), getValue('comp-1'), getValue('comp-2')].filter(Boolean);
-  }
-
-  function countChars(el, counterId, max) {
-    const len = el.value.length;
-    const counter = document.getElementById(counterId);
-    counter.textContent = len + ' / ' + max;
-    counter.classList.toggle('warn', len > max * 0.9);
-    if (len > max) el.value = el.value.substring(0, max);
-  }
-
-  const statusMessages = [
-    'Visiting competitor websites...',
-    'Reading their homepage structures...',
-    'Identifying what they do well...',
-    'Writing your hero section...',
-    'Crafting your services copy...',
-    'Building the about section...',
-    'Adding the final touches...'
-  ];
-
-  let statusInterval;
-
-  function startStatusCycle() {
-    let i = 0;
-    const el = document.getElementById('loading-status');
-    el.textContent = statusMessages[0];
-    statusInterval = setInterval(() => { i = (i + 1) % statusMessages.length; el.textContent = statusMessages[i]; }, 3500);
-  }
-
-  function stopStatusCycle() { clearInterval(statusInterval); }
-
-  async function generate() {
-    const name = getValue('q-name');
-    const what = getValue('q-what');
-    const who = getValue('q-who');
-    const location = getValue('q-location');
-    const serve = getValue('q-serve');
-    const about = getValue('q-about');
-    const extra = getValue('q-extra');
-    const services = getServices();
-    const colours = getColours();
-    const competitors = getCompetitors();
-
-    document.getElementById('pf-steps-container').classList.add('hidden');
-    document.getElementById('pf-loading').classList.add('visible');
-    document.getElementById('pf-result').classList.remove('visible');
-    document.getElementById('pf-error').classList.remove('visible');
-    startStatusCycle();
-
-    let extraSections = [], extraInsights = '', checklist = [];
-
-    if (competitors.length) {
-      try {
-        const compRes = await fetch('/api/analyse-competitors', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ competitors })
-        });
-        if (compRes.ok) {
-          const compData = await compRes.json();
-          extraSections = compData.extra_sections || [];
-          extraInsights = compData.insights || '';
-          checklist = compData.checklist || [];
-        }
-      } catch (e) {}
+    if (!response.ok || data.error) {
+      return res.status(500).json({ error: data.error?.message || 'Anthropic API error' });
     }
 
-    stopStatusCycle();
-    document.getElementById('loading-status').textContent = 'Writing your copy...';
-
-    const colourInstruction = colours.length
-      ? `BRAND COLOURS: primary ${colours[0]}${colours[1] ? ', secondary ' + colours[1] : ''}${colours[2] ? ', accent ' + colours[2] : ''}. Use these on headings, buttons, section backgrounds, and accents.`
-      : 'COLOURS: Use a clean neutral palette, white background, soft warm accents, dark professional text.';
-
-    try {
-      const genRes = await fetch('/api/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, what, who, location, serve, about, extra, services, extraSections, extraInsights, colourInstruction })
-      });
-
-      if (!genRes.ok) {
-        const errText = await genRes.text();
-        throw new Error('Server error: ' + errText);
-      }
-
-      const genData = await genRes.json();
-      if (genData.error) throw new Error(genData.error);
-
-      generatedHTML = genData.html;
-
-      document.getElementById('pf-loading').classList.remove('visible');
-      document.getElementById('pf-result').classList.add('visible');
-
-      const mandatory = ['Hero', 'Ideal customer', 'Services', 'About', 'Testimonials', 'CTA', 'Footer'];
-      const sl = document.getElementById('sections-list');
-      sl.innerHTML = '';
-      mandatory.forEach(s => {
-        const b = document.createElement('span');
-        b.className = 'pf-badge';
-        b.textContent = s;
-        sl.appendChild(b);
-      });
-      extraSections.forEach(s => {
-        const b = document.createElement('span');
-        b.className = 'pf-badge extra';
-        b.textContent = s;
-        sl.appendChild(b);
-      });
-
-      if (checklist.length) {
-        const box = document.getElementById('pf-competitor-notes');
-        const list = document.getElementById('competitor-notes-list');
-        list.innerHTML = '';
-        checklist.slice(0, 3).forEach(note => {
-          const li = document.createElement('li');
-          li.innerHTML = `<span class="pf-note-dot"></span><span>${note}</span>`;
-          list.appendChild(li);
-        });
-        box.style.display = 'block';
-      }
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    } catch (err) {
-      document.getElementById('pf-loading').classList.remove('visible');
-      document.getElementById('pf-steps-container').classList.remove('hidden');
-      document.getElementById('pf-result').classList.remove('visible');
-      showStep(9);
-      const errEl = document.getElementById('pf-error');
-      errEl.textContent = 'Something went wrong: ' + err.message + '. Please try again.';
-      errEl.classList.add('visible');
+    const textBlock = data.content && data.content.find(b => b.type === 'text');
+    if (!textBlock) {
+      return res.status(500).json({ error: 'No content returned from API' });
     }
-  }
 
-  function openInNewTab() {
-    if (!generatedHTML) return;
-    const blob = new Blob([generatedHTML], { type: 'text/html' });
-    window.open(URL.createObjectURL(blob), '_blank');
-  }
+    let html = textBlock.text.trim();
+    if (html.startsWith('```')) {
+      html = html.replace(/^```html?\n?/, '').replace(/\n?```$/, '');
+    }
 
-  function downloadHTML() {
-    if (!generatedHTML) return;
-    const blob = new Blob([generatedHTML], { type: 'text/html' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'my-homepage-framework.html';
-    a.click();
-  }
+    // Safety check — ensure HTML is complete
+    if (!html.includes('</html>')) {
+      html = html + '\n</body>\n</html>';
+    }
 
-  function copyCode() {
-    navigator.clipboard.writeText(generatedHTML).then(() => {
-      document.getElementById('copy-btn-label').textContent = 'Copied!';
-      setTimeout(() => { document.getElementById('copy-btn-label').textContent = 'Copy HTML'; }, 2000);
-    });
-  }
+    return res.status(200).json({ html });
 
-  function restart() {
-    currentStep = 0; serviceCount = 1; generatedHTML = '';
-    document.getElementById('pf-result').classList.remove('visible');
-    document.getElementById('pf-loading').classList.remove('visible');
-    document.getElementById('pf-error').classList.remove('visible');
-    document.getElementById('pf-competitor-notes').style.display = 'none';
-    document.getElementById('pf-steps-container').classList.remove('hidden');
-    document.getElementById('services-container').innerHTML = `
-      <div class="pf-service-row">
-        <p class="pf-row-label">Service 1</p>
-        <div class="pf-service-fields">
-          <input type="text" placeholder="Service name" id="s0-name" />
-          <input type="text" placeholder="Price (e.g. $500)" id="s0-price" />
-        </div>
-        <div class="pf-service-desc">
-          <input type="text" placeholder="One-line description" id="s0-desc" />
-        </div>
-      </div>`;
-    document.getElementById('add-service-btn').style.display = 'block';
-    ['q-name','q-what','q-who','q-location','q-serve','q-about','q-extra','comp-0','comp-1','comp-2'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) el.value = '';
-    });
-    document.getElementById('about-counter').textContent = '0 / 600';
-    document.getElementById('extra-counter').textContent = '0 / 1000';
-    showStep(0);
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
   }
-</script>
-</body>
-</html>
+}
