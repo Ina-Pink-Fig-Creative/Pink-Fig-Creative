@@ -242,7 +242,7 @@
       <h2 class="pf-step-heading">What do you want visitors to do?</h2>
       <p class="pf-step-sub">Choose the main action you want people to take on your homepage. This becomes your call to action button throughout the site.</p>
       <div class="pf-tone-grid">
-        <button class="pf-tone-btn" id="cta-book" onclick="selectCTA('Book a free call')">
+        <button class="pf-tone-btn active" id="cta-book" onclick="selectCTA('Book a free call')">
           <span class="tone-name">Book a free call</span>
           <span class="tone-desc">Great for service businesses and coaches.</span>
         </button>
@@ -564,7 +564,7 @@
   }
 
   function nextStep(from) {
-    const required = { 1: 'q-name', 2: 'q-what', 3: 'q-who', 4: 'q-location' };
+    const required = { 2: 'q-what', 3: 'q-who', 5: 'q-location' };
     if (from === 1) {
       const fn = document.getElementById('q-firstname');
       const nm = document.getElementById('q-name');
@@ -751,6 +751,10 @@
 
       generatedHTML = genData.html;
 
+      if (!generatedHTML || generatedHTML.trim().length < 100) {
+        throw new Error('The generated page came back empty. Please try again.');
+      }
+
       document.getElementById('pf-loading').classList.remove('visible');
       document.getElementById('pf-result').classList.add('visible');
 
@@ -797,8 +801,14 @@
 
   function openInNewTab() {
     if (!generatedHTML) return;
-    const blob = new Blob([generatedHTML], { type: 'text/html' });
-    window.open(URL.createObjectURL(blob), '_blank');
+    const newTab = window.open('', '_blank');
+    if (newTab) {
+      newTab.document.open();
+      newTab.document.write(generatedHTML);
+      newTab.document.close();
+    } else {
+      alert('Pop-up blocked. Please use Download HTML instead and open the file in your browser.');
+    }
   }
 
   function downloadHTML() {
