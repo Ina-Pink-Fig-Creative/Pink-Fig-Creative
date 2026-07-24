@@ -198,12 +198,14 @@
       </div>
     </div>
 
-    <!-- STEP 1: BUSINESS NAME -->
+    <!-- STEP 1: ABOUT YOUR BUSINESS -->
     <div class="pf-step" id="step-1">
-      <p class="pf-step-label">Step 1 of 8</p>
-      <h2 class="pf-step-heading">What's your business name?</h2>
-      <p class="pf-step-sub">This will appear throughout your homepage copy.</p>
-      <input class="pf-input" type="text" id="q-name" placeholder="e.g. Bloom Coaching" />
+      <p class="pf-step-label">Step 1 of 12</p>
+      <h2 class="pf-step-heading">Let's start with the basics.</h2>
+      <p class="pf-step-sub">This information will appear throughout your homepage copy.</p>
+      <input class="pf-input" type="text" id="q-firstname" placeholder="Your first name (e.g. Sarah)" />
+      <input class="pf-input" type="text" id="q-name" placeholder="Your business name (e.g. Bloom Coaching)" />
+      <input class="pf-input" type="email" id="q-email" placeholder="Your email address (e.g. hello@yourbusiness.com)" />
       <div class="pf-nav">
         <button class="pf-btn-back" onclick="prevStep(1)">Back</button>
         <button class="pf-btn-next" onclick="nextStep(1)">Next</button>
@@ -212,7 +214,7 @@
 
     <!-- STEP 2: WHAT DO YOU DO -->
     <div class="pf-step" id="step-2">
-      <p class="pf-step-label">Step 2 of 8</p>
+      <p class="pf-step-label">Step 2 of 12</p>
       <h2 class="pf-step-heading">What services do you offer?</h2>
       <p class="pf-step-sub">In plain terms. What service do you provide and what outcome does it create for your clients?</p>
       <textarea class="pf-input pf-textarea" id="q-what" placeholder="e.g. I help busy women build confidence through 1:1 coaching and group programs" style="min-height: 160px;"></textarea>
@@ -224,7 +226,7 @@
 
     <!-- STEP 3: WHO -->
     <div class="pf-step" id="step-3">
-      <p class="pf-step-label">Step 3 of 8</p>
+      <p class="pf-step-label">Step 3 of 12</p>
       <h2 class="pf-step-heading">Who do you work with?</h2>
       <p class="pf-step-sub">Describe your ideal client. The more specific, the better your copy will be.</p>
       <textarea class="pf-input pf-textarea" id="q-who" placeholder="e.g. Female entrepreneurs in their 30s and 40s who feel stuck and overwhelmed in their business" style="min-height: 160px;"></textarea>
@@ -234,36 +236,75 @@
       </div>
     </div>
 
+    <!-- STEP 4: CTA -->
+    <div class="pf-step" id="step-11">
+      <p class="pf-step-label">Step 4 of 12</p>
+      <h2 class="pf-step-heading">What do you want visitors to do?</h2>
+      <p class="pf-step-sub">Choose the main action you want people to take on your homepage. This becomes your call to action button throughout the site.</p>
+      <div class="pf-tone-grid">
+        <button class="pf-tone-btn" id="cta-book" onclick="selectCTA('Book a free call')">
+          <span class="tone-name">Book a free call</span>
+          <span class="tone-desc">Great for service businesses and coaches.</span>
+        </button>
+        <button class="pf-tone-btn" id="cta-enquire" onclick="selectCTA('Send an enquiry')">
+          <span class="tone-name">Send an enquiry</span>
+          <span class="tone-desc">Good for project-based work.</span>
+        </button>
+        <button class="pf-tone-btn" id="cta-quote" onclick="selectCTA('Get a quote')">
+          <span class="tone-name">Get a quote</span>
+          <span class="tone-desc">Works well for trades and consultants.</span>
+        </button>
+        <button class="pf-tone-btn" id="cta-work" onclick="selectCTA('Work with me')">
+          <span class="tone-name">Work with me</span>
+          <span class="tone-desc">Personal and direct.</span>
+        </button>
+        <button class="pf-tone-btn" id="cta-buy" onclick="selectCTA('Buy now')">
+          <span class="tone-name">Buy now</span>
+          <span class="tone-desc">For products or fixed-price services.</span>
+        </button>
+        <button class="pf-tone-btn" id="cta-freebie" onclick="selectCTA('Download my freebie')">
+          <span class="tone-name">Download my freebie</span>
+          <span class="tone-desc">Great for list building.</span>
+        </button>
+      </div>
+      <p class="pf-step-sub" style="margin-top:14px; margin-bottom:8px;">Or write your own:</p>
+      <input class="pf-input" type="text" id="q-cta-custom" placeholder="e.g. Start your free trial" oninput="selectCTA(this.value)" />
+      <div class="pf-nav">
+        <button class="pf-btn-back" onclick="prevStep(6)">Back</button>
+        <button class="pf-btn-next" onclick="nextStep(6)">Next</button>
+      </div>
+    </div>
+
     <!-- STEP 4: LOCATION -->
-    <div class="pf-step" id="step-4">
-      <p class="pf-step-label">Step 4 of 8</p>
+    <div class="pf-step" id="step-11">
+      <p class="pf-step-label">Step 5 of 12</p>
       <h2 class="pf-step-heading">Where are you based?</h2>
       <p class="pf-step-sub">City and country. This helps with local SEO and positioning.</p>
       <input class="pf-input" type="text" id="q-location" placeholder="e.g. Sydney, Australia" />
       <label class="pf-step-sub" style="margin-bottom:8px; display:block;">Where do you serve your clients?</label>
       <input class="pf-input" type="text" id="q-serve" placeholder="e.g. Online, Sydney based, or both" />
       <div class="pf-nav">
-        <button class="pf-btn-back" onclick="prevStep(4)">Back</button>
-        <button class="pf-btn-next" onclick="nextStep(4)">Next</button>
+        <button class="pf-btn-back" onclick="prevStep(6)">Back</button>
+        <button class="pf-btn-next" onclick="nextStep(6)">Next</button>
       </div>
     </div>
 
     <!-- STEP 5: ABOUT YOU -->
-    <div class="pf-step" id="step-5">
-      <p class="pf-step-label">Step 5 of 8</p>
+    <div class="pf-step" id="step-11">
+      <p class="pf-step-label">Step 6 of 12</p>
       <h2 class="pf-step-heading">Tell us a little about you.</h2>
       <p class="pf-step-sub">Up to 100 words. Share your background, why you started your business, and what makes you different. This goes into your about section.</p>
       <textarea class="pf-input pf-textarea" id="q-about" placeholder="e.g. I'm a Sydney-based designer with 10 years of experience helping small businesses get online. I started my business because I believe every business deserves a beautiful website without the overwhelm..." style="min-height: 130px;" oninput="countChars(this, 'about-counter', 600)"></textarea>
       <p class="pf-char-counter" id="about-counter">0 / 600</p>
       <div class="pf-nav">
-        <button class="pf-btn-back" onclick="prevStep(5)">Back</button>
-        <button class="pf-btn-next" onclick="nextStep(5)">Next</button>
+        <button class="pf-btn-back" onclick="prevStep(6)">Back</button>
+        <button class="pf-btn-next" onclick="nextStep(6)">Next</button>
       </div>
     </div>
 
     <!-- STEP 6: SERVICES -->
-    <div class="pf-step" id="step-6">
-      <p class="pf-step-label">Step 6 of 8</p>
+    <div class="pf-step" id="step-11">
+      <p class="pf-step-label">Step 7 of 12</p>
       <h2 class="pf-step-heading">What services do you offer?</h2>
       <p class="pf-step-sub">Add up to 3. Include a name, price, and short description for each.</p>
       <div id="services-container">
@@ -286,8 +327,8 @@
     </div>
 
     <!-- STEP 7: BRAND COLOURS -->
-    <div class="pf-step" id="step-7">
-      <p class="pf-step-label">Step 7 of 8</p>
+    <div class="pf-step" id="step-11">
+      <p class="pf-step-label">Step 8 of 12</p>
       <h2 class="pf-step-heading">Let's talk colours.</h2>
       <p class="pf-step-sub">If you already have brand colours, pop in up to 3 hex codes below. These will be applied directly to your homepage framework. Not there yet? That's completely fine. Just tell us one colour you're drawn to and we'll take it from there.</p>
 
@@ -335,13 +376,13 @@
       </div>
 
       <div class="pf-nav">
-        <button class="pf-btn-back" onclick="prevStep(7)">Back</button>
-        <button class="pf-btn-next" onclick="nextStep(7)">Next</button>
+        <button class="pf-btn-back" onclick="prevStep(10)">Back</button>
+        <button class="pf-btn-next" onclick="nextStep(10)">Next</button>
       </div>
     </div>
 
     <!-- STEP 8: COMPETITORS -->
-    <div class="pf-step" id="step-8">
+    <div class="pf-step" id="step-11">
       <p class="pf-step-label">Step 8 of 10</p>
       <h2 class="pf-step-heading">Name three competitors.</h2>
       <p class="pf-step-sub">No need to be in the same city. This is mandatory.</p>
@@ -350,14 +391,14 @@
       <input class="pf-input" type="url" id="comp-1" placeholder="https://competitor2.com" />
       <input class="pf-input" type="url" id="comp-2" placeholder="https://competitor3.com" />
       <div class="pf-nav">
-        <button class="pf-btn-back" onclick="prevStep(8)">Back</button>
-        <button class="pf-btn-next" onclick="nextStep(8)">Next</button>
+        <button class="pf-btn-back" onclick="prevStep(10)">Back</button>
+        <button class="pf-btn-next" onclick="nextStep(10)">Next</button>
       </div>
     </div>
 
     <!-- STEP 9: TONE OF VOICE -->
-    <div class="pf-step" id="step-9">
-      <p class="pf-step-label">Step 9 of 10</p>
+    <div class="pf-step" id="step-11">
+      <p class="pf-step-label">Step 10 of 12</p>
       <h2 class="pf-step-heading">What's your tone of voice?</h2>
       <p class="pf-step-sub">Choose the tone that best describes how you want to sound to your clients. This shapes the language used throughout your homepage.</p>
       <div class="pf-tone-grid">
@@ -387,20 +428,20 @@
         </button>
       </div>
       <div class="pf-nav">
-        <button class="pf-btn-back" onclick="prevStep(9)">Back</button>
-        <button class="pf-btn-next" onclick="nextStep(9)">Next</button>
+        <button class="pf-btn-back" onclick="prevStep(10)">Back</button>
+        <button class="pf-btn-next" onclick="nextStep(10)">Next</button>
       </div>
     </div>
 
     <!-- STEP 10: FREE WRITING -->
-    <div class="pf-step" id="step-10">
-      <p class="pf-step-label">Step 10 of 10</p>
+    <div class="pf-step" id="step-11">
+      <p class="pf-step-label">Step 11 of 12</p>
       <h2 class="pf-step-heading">Anything else I should know?</h2>
       <p class="pf-step-sub">Free writing. Add anything that might help make your copy even better. Your tone of voice, things you love about your business, awards, a story, something your clients always say. No rules here.</p>
       <textarea class="pf-input pf-textarea" id="q-extra" placeholder="e.g. My clients always say I make them feel at ease. I won a local business award in 2023. I want my website to feel warm but professional, not too corporate..." style="min-height: 140px;" oninput="countChars(this, 'extra-counter', 1000)"></textarea>
       <p class="pf-char-counter" id="extra-counter">0 / 1000</p>
       <div class="pf-nav">
-        <button class="pf-btn-back" onclick="prevStep(10)">Back</button>
+        <button class="pf-btn-back" onclick="prevStep(11)">Back</button>
         <button class="pf-btn-generate" onclick="generate()">&#10024; Generate my homepage</button>
       </div>
     </div>
@@ -440,6 +481,11 @@
           <span class="btn-label">Start over</span>
           <span class="btn-sub">Build a new one</span>
         </button>
+        <button class="pf-result-btn secondary" onclick="downloadWord()" style="grid-column: 1 / -1;">
+          <span class="btn-icon">&#128196;</span>
+          <span class="btn-label">Download as Word doc</span>
+          <span class="btn-sub">Edit your copy in Word</span>
+        </button>
       </div>
     </div>
 
@@ -464,19 +510,37 @@
 </div>
 
 <script>
-  const TOTAL_STEPS = 10;
+  const TOTAL_STEPS = 12;
   let currentStep = 0;
   let serviceCount = 1;
   let generatedHTML = '';
   let colourMode = 'brand';
   let selectedTone = 'friendly';
+  let selectedCTA = 'Book a free call';
+
+  function selectCTA(cta) {
+    selectedCTA = cta;
+    ['book','enquire','quote','work','buy','freebie'].forEach(id => {
+      const el = document.getElementById('cta-' + id);
+      if (el) el.classList.remove('active');
+    });
+    const presets = {
+      'Book a free call': 'cta-book',
+      'Send an enquiry': 'cta-enquire',
+      'Get a quote': 'cta-quote',
+      'Work with me': 'cta-work',
+      'Buy now': 'cta-buy',
+      'Download my freebie': 'cta-freebie'
+    };
+    if (presets[cta]) document.getElementById(presets[cta]).classList.add('active');
+  }
 
   function buildProgress() {
     const el = document.getElementById('pf-progress');
     if (!el) return;
     el.innerHTML = '';
     const adj = currentStep - 1;
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 12; i++) {
       const d = document.createElement('div');
       d.className = 'pf-dot' + (i === adj ? ' active' : i < adj ? ' done' : '');
       el.appendChild(d);
@@ -501,6 +565,16 @@
 
   function nextStep(from) {
     const required = { 1: 'q-name', 2: 'q-what', 3: 'q-who', 4: 'q-location' };
+    if (from === 1) {
+      const fn = document.getElementById('q-firstname');
+      const nm = document.getElementById('q-name');
+      if (!fn.value.trim() || !nm.value.trim()) {
+        if (!fn.value.trim()) { fn.style.borderColor = '#efb4b2'; setTimeout(() => { fn.style.borderColor = ''; }, 1500); }
+        if (!nm.value.trim()) { nm.style.borderColor = '#efb4b2'; setTimeout(() => { nm.style.borderColor = ''; }, 1500); }
+        return;
+      }
+      showStep(2); return;
+    }
     if (required[from]) {
       const el = document.getElementById(required[from]);
       if (!el.value.trim()) {
@@ -614,7 +688,9 @@
   function stopStatusCycle() { clearInterval(statusInterval); }
 
   async function generate() {
+    const firstname = getValue('q-firstname');
     const name = getValue('q-name');
+    const email = getValue('q-email');
     const what = getValue('q-what');
     const who = getValue('q-who');
     const location = getValue('q-location');
@@ -622,6 +698,7 @@
     const about = getValue('q-about');
     const extra = getValue('q-extra');
     const tone = selectedTone;
+    const cta = selectedCTA || getValue('q-cta-custom') || 'Book a free call';
     const services = getServices();
     const colours = getColours();
     const competitors = getCompetitors();
@@ -661,7 +738,7 @@
       const genRes = await fetch('/api/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, what, who, location, serve, about, extra, tone, services, extraSections, extraInsights, colourInstruction })
+        body: JSON.stringify({ firstname, name, email, what, who, location, serve, about, extra, tone, cta, services, extraSections, extraInsights, colourInstruction })
       });
 
       if (!genRes.ok) {
@@ -711,7 +788,7 @@
       document.getElementById('pf-loading').classList.remove('visible');
       document.getElementById('pf-steps-container').classList.remove('hidden');
       document.getElementById('pf-result').classList.remove('visible');
-      showStep(10);
+      showStep(11);
       const errEl = document.getElementById('pf-error');
       errEl.textContent = 'Something went wrong: ' + err.message + '. Please try again.';
       errEl.classList.add('visible');
@@ -730,6 +807,51 @@
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = 'my-homepage-framework.html';
+    a.click();
+  }
+
+  function downloadWord() {
+    if (!generatedHTML) return;
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(generatedHTML, 'text/html');
+    doc.querySelectorAll('style, script, nav').forEach(el => el.remove());
+    const sections = doc.querySelectorAll('section, header, footer, div[class*="section"], div[class*="hero"], div[class*="about"], div[class*="service"], div[class*="testimonial"], div[class*="cta"]');
+    let text = '';
+    if (sections.length > 0) {
+      sections.forEach(s => { text += s.innerText + '\n\n'; });
+    } else {
+      text = doc.body.innerText;
+    }
+    const businessName = document.getElementById('q-name') ? document.getElementById('q-name').value : 'Your business';
+    const ctaUsed = selectedCTA || 'Book a free call';
+    const wordContent = `
+HOMEPAGE FRAMEWORK — ${businessName.toUpperCase()}
+Generated by the Pink Fig Creative Homepage Framework Builder
+============================================================
+
+${text.trim()}
+
+============================================================
+READY TO BRING THIS TO LIFE?
+
+Option 1 — Get it done for you
+Book a 1-page website with Ina from Pink Fig Creative.
+Built in one day. Launched and ready to go.
+Book here: https://pinkfigcreative.as.me/1-page-website
+
+Option 2 — DIY it yourself
+Use the Website Launch Roadmap to build your own Squarespace website step by step.
+Get started: https://pfc.pinkfigcreative.com.au/hg
+
+Questions? Book a free Tea Chat with Ina: https://pinkfigcreative.as.me/teachat
+
+Pink Fig Creative | www.pinkfigcreative.com.au
+============================================================
+`;
+    const blob = new Blob(['\ufeff' + wordContent], { type: 'application/msword' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'homepage-copy-' + businessName.toLowerCase().replace(/\s+/g, '-') + '.doc';
     a.click();
   }
 
@@ -760,11 +882,16 @@
       </div>`;
     document.getElementById('add-service-btn').style.display = 'block';
     selectedTone = 'friendly';
+    selectedCTA = 'Book a free call';
     ['friendly','professional','bold','calm','playful','inspiring'].forEach(t => {
       const el = document.getElementById('tone-' + t);
       if (el) el.classList.toggle('active', t === 'friendly');
     });
-    ['q-name','q-what','q-who','q-location','q-serve','q-about','q-extra','comp-0','comp-1','comp-2'].forEach(id => {
+    ['book','enquire','quote','work','buy','freebie'].forEach(id => {
+      const el = document.getElementById('cta-' + id);
+      if (el) el.classList.remove('active');
+    });
+    ['q-firstname','q-name','q-email','q-what','q-who','q-location','q-serve','q-about','q-extra','q-cta-custom','comp-0','comp-1','comp-2'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.value = '';
     });
