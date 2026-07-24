@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
-  const { name, what, who, location, serve, about, extra, tone, services, extraSections, extraInsights, colourInstruction } = req.body;
+  const { firstname, name, email, what, who, location, serve, about, extra, tone, cta, services, extraSections, extraInsights, colourInstruction } = req.body;
 
   if (!name || !what || !who || !location || !services) {
     return res.status(400).json({ error: 'Missing required fields' });
@@ -60,7 +60,10 @@ export default async function handler(req, res) {
   const prompt = `You are an expert website copywriter. Generate a complete homepage HTML for a service-based business.
 
 BUSINESS DETAILS:
+- Owner first name: ${firstname || 'the owner'}
 - Business name: ${name}
+- Contact email: ${email || '[your@email.com]'}
+- Main CTA (use this exact text on all buttons): ${cta || 'Book a free call'}
 - Services offered: ${what}
 - Ideal client: ${who}
 - Location: ${location}
@@ -95,7 +98,7 @@ MANDATORY HOMEPAGE SECTIONS (all required, in this order):
 2. HERO: 
    - H1 exactly 5-8 words
    - One subheading sentence
-   - One CTA button in primary colour
+   - One CTA button in primary colour with text: "${cta || 'Book a free call'}"
    - A LARGE placeholder image on the right side (use a grey div at least 400px tall with text "[Hero image — add your best photo here]")
    - Layout: two columns, copy on left, image on right
 
@@ -113,9 +116,10 @@ MANDATORY HOMEPAGE SECTIONS (all required, in this order):
 
 5. ABOUT:
    - Two column layout: placeholder image on left, copy on right
+   - Start with "Hi, I'm ${firstname || 'the owner of ' + name}"
    - Use the about text provided, written in first person
    - Placeholder image: grey div with "[Your photo here]"
-   - One CTA button
+   - One CTA button using the exact CTA text: ${cta || 'Book a free call'}
    - Use secondary colour as background
 
 6. TESTIMONIALS:
@@ -129,10 +133,10 @@ MANDATORY HOMEPAGE SECTIONS (all required, in this order):
    - One large CTA button in primary colour
 
 8. FOOTER:
-   - Business name
+   - Business name: ${name}
    - Simple nav links
-   - Contact email: [your@email.com]
-   - Copyright notice
+   - Contact email: ${email || '[your@email.com]'}
+   - Copyright notice: © ${new Date().getFullYear()} ${name}
    - Privacy Policy placeholder link
    - Use primary colour as background, white text
 ${extraSections && extraSections.length ? '\n9. COMPETITOR EXTRAS: ' + extraSections.join(', ') + ' — add simply after services section.' : ''}
